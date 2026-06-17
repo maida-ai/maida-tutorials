@@ -2,6 +2,10 @@
 
 Interactive Jupyter notebooks for learning how to trace and debug AI agents with Maida.AI. All notebooks run without API keys or network calls. They use deterministic stubs and fake models.
 
+## Version policy
+
+These tutorials intentionally track the latest Maida behavior. Install the current `maida-ai` package and `maida` CLI when running them; older Maida releases and older trace formats are not a compatibility target for this repo.
+
 ## Notebooks
 
 ### 1. Stop a Runaway Agent (`Guardrails/`)
