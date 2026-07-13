@@ -11,9 +11,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-openai = [
-    "maida-ai[openai]",
+crewai = [
+    "maida-ai[crewai]",
 ]
 langchain = [
     "maida-ai[langchain]",
+]
+openai = [
+    "maida-ai[openai]",
 ]

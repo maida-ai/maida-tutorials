@@ -1,0 +1,62 @@
+import json
+import unittest
+from pathlib import Path
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+FRAMEWORK_NOTEBOOKS = (
+    Path("LangChain/Mock LangGraph Agent.ipynb"),
+    Path("OpenAI/Mock OpenAI Agent.ipynb"),
+    Path("CrewAI/Mock CrewAI Agent.ipynb"),
+)
+
+
+def notebook_source(relative_path: Path) -> str:
+    notebook = json.loads((REPO_ROOT / relative_path).read_text(encoding="utf-8"))
+    return "\n".join(
+        "".join(cell.get("source", [])) for cell in notebook.get("cells", [])
+    )
+
+
+class TutorialConformanceTests(unittest.TestCase):
+    def test_supported_frameworks_share_the_offline_sales_scenario(self):
+        for relative_path in FRAMEWORK_NOTEBOOKS:
+            with self.subTest(notebook=str(relative_path)):
+                source = notebook_source(relative_path)
+                for expected in ("search", "calculator", "save_result", "6.5"):
+                    self.assertIn(expected, source)
+                self.assertRegex(source.lower(), r"(?:no|without) api keys?")
+
+    def test_crewai_tutorial_documents_setup_privacy_and_limitations(self):
+        source = notebook_source(Path("CrewAI/Mock CrewAI Agent.ipynb"))
+
+        for expected in (
+            "from maida.integrations import crewai",
+            "LLMCallHookContext",
+            "ToolCallHookContext",
+            "CREWAI_STORAGE_DIR",
+            "maida-ai[crewai]",
+            "run_crewai_failure_path",
+            "tutorial-secret",
+            "Failure cases and limitations",
+            "Missing dependency",
+            "Hook ordering",
+            "Redaction and truncation",
+        ):
+            self.assertIn(expected, source)
+
+    def test_openai_tutorial_uses_the_sdk_polling_fallback(self):
+        source = notebook_source(Path("OpenAI/Mock OpenAI Agent.ipynb"))
+
+        self.assertIn("check `PROCESSOR.abort_exception` after each operation", source)
+        self.assertIn("PROCESSOR.raise_if_aborted()", source)
+
+    def test_readme_lists_crewai_install_and_notebook(self):
+        readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("CrewAI/Mock CrewAI Agent.ipynb", readme)
+        self.assertIn('uv pip install "maida-ai[crewai]"', readme)
+
+
+if __name__ == "__main__":
+    unittest.main()
