@@ -31,9 +31,10 @@ Good starting point if you want to understand guardrails before looking at frame
 Builds a multi-node LangGraph graph (search → calculate → save) using `FakeListLLM` and deterministic `@tool` functions. Covers:
 
 - Adding `LangChainCallbackHandler` to a LangGraph run
-- The happy-path trace (RUN_START → LLM_CALL → TOOL_CALL × 3 → RUN_END)
+- Verifying the exact happy-path signature: four LLM calls, three tool calls, and `search → calculator → save_result`
 - A looping agent that triggers `LOOP_WARNING`
-- Using `stop_on_loop` to abort the graph mid-execution
+- Using `stop_on_loop` to abort the graph with `LOOP_WARNING → ERROR → RUN_END(status=error)`
+- Missing dependencies, inactive-run behavior, normalized events, and Maida's storage redaction/truncation
 
 ---
 
