@@ -51,6 +51,27 @@ class TutorialConformanceTests(unittest.TestCase):
         self.assertIn("check `PROCESSOR.abort_exception` after each operation", source)
         self.assertIn("PROCESSOR.raise_if_aborted()", source)
 
+    def test_langgraph_tutorial_pins_adapter_conformance_contract(self):
+        source = notebook_source(Path("LangChain/Mock LangGraph Agent.ipynb"))
+
+        for expected in (
+            "handler = LangChainCallbackHandler()",
+            'config = {"callbacks": [handler]}',
+            '"llm_calls": 4',
+            '"tool_calls": 3',
+            '"tool_call_sequence": ["search", "calculator", "save_result"]',
+            '"event_type_sequence": [',
+            'assert success_signature == EXPECTED_SUCCESS_SIGNATURE',
+            'assert guarded_signature["final_status"] == "error"',
+            'assert guarded_signature["event_type_sequence"][-3:] == [',
+            '"LOOP_WARNING", "ERROR", "RUN_END"',
+            "maida-ai[langchain]",
+            "No active Maida run",
+            "standard `LLM_CALL` and `TOOL_CALL` events",
+            "Redaction and truncation",
+        ):
+            self.assertIn(expected, source)
+
     def test_readme_lists_crewai_install_and_notebook(self):
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
 
