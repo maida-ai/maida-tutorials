@@ -46,9 +46,11 @@ Builds a multi-node LangGraph graph (search → calculate → save) using `FakeL
 Uses the OpenAI Agents SDK tracing API (`generation_span`, `function_span`) with deterministic inputs to drive the same quarterly-sales workflow without hitting any real model endpoint. Covers:
 
 - Registering the Maida OpenAI Agents tracing processor via `set_trace_processors`
-- How `generation_span` → `LLM_CALL` and `function_span` → `TOOL_CALL` translation works
-- The looping pattern and `LOOP_WARNING`
-- Why the SDK's tracing boundary requires polling `PROCESSOR.abort_exception` to stop a guarded low-level span loop
+- Verifying the exact happy-path signature: four LLM calls, three tool calls, and `search → calculator → save_result`
+- A looping workflow that triggers `LOOP_WARNING`
+- Using `stop_on_loop` to finish with `LOOP_WARNING → ERROR → RUN_END(status=error)`
+- Missing dependencies, inactive-run behavior, normalized events, and Maida's storage redaction/truncation
+- Using `PROCESSOR.abort_exception` polling as a compatibility fallback for the SDK version locked by the tutorial
 
 ---
 
