@@ -62,10 +62,11 @@ Uses the OpenAI Agents SDK tracing API (`generation_span`, `function_span`) with
 Runs the same deterministic search → calculate → save workflow through CrewAI's public execution-hook API. Covers:
 
 - Activating the Maida CrewAI execution hooks
-- Producing the shared four-LLM-call, three-tool-call structural signature
-- Recording an incomplete tool call as an error when the tool raises
+- Verifying the exact happy-path signature: four LLM calls, three tool calls, and `search → calculator → save_result`
+- Recording an incomplete tool call as an error-status `TOOL_CALL` and `RUN_END(status=error)` when the tool raises
+- Using `stop_on_loop` to abort repeated work with `LOOP_WARNING → ERROR → RUN_END(status=error)`
 - Keeping CrewAI state in a temporary directory and disabling its native telemetry
-- Missing dependencies, active-run requirements, hook-ordering limitations, and Maida redaction/truncation
+- Missing dependencies, inactive-run behavior, normalized events, and Maida's storage redaction/truncation
 
 ---
 
