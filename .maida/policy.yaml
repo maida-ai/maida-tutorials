@@ -1,0 +1,11 @@
+# Strict demo policy: any structural growth fails the gate.
+assert:
+  step_tolerance: 0
+  tool_call_tolerance: 0
+  cost_tolerance: 0
+  # Local scheduling noise is not the behavior this demo teaches.
+  duration_tolerance: 1000
+  no_loops: true
+  no_guardrails: true
+  no_new_tools: true
+  expect_status: ok

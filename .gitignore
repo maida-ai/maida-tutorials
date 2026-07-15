@@ -2,6 +2,8 @@
 **/.agentdbg/
 *.json
 *.jsonl
+.maida/demo-runs/
+!.maida/baselines/broken-pr-demo.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

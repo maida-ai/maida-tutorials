@@ -11,6 +11,7 @@ ORDER = {
     "status": "shipped",
     "arrival_day": "Friday",
 }
+DEFAULT_LOOKUPS = 1
 
 
 def lookup_order(order_id: str) -> dict[str, str]:
@@ -29,7 +30,7 @@ def compose_reply(order: dict[str, str]) -> str:
 
 
 @trace(name="broken-pr-order-status")
-def run_agent(lookups: int = 1) -> str:
+def run_agent(lookups: int = DEFAULT_LOOKUPS) -> str:
     """Look up an order and return the same answer regardless of retry count."""
     order = ORDER
     for _ in range(lookups):
@@ -58,8 +59,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--lookups",
         type=int,
-        default=1,
-        help="number of identical order lookups to perform (default: 1)",
+        default=DEFAULT_LOOKUPS,
+        help=f"number of identical order lookups to perform (default: {DEFAULT_LOOKUPS})",
     )
     arguments = parser.parse_args()
     if arguments.lookups < 1:

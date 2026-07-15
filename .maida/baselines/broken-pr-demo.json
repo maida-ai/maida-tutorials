@@ -1,0 +1,33 @@
+{
+  "schema_version": "0.2",
+  "created_at": "2026-07-15T19:38:56.504Z",
+  "source_run_id": "51f60d45dacdcc20181d53b31bf81f47",
+  "source_run_name": "broken-pr-order-status",
+  "summary": {
+    "status": "ok",
+    "total_events": 2,
+    "llm_calls": 0,
+    "tool_calls": 2,
+    "errors": 0,
+    "loop_warnings": 0,
+    "duration_ms": 49,
+    "total_tokens": 0
+  },
+  "tool_path": [
+    "compose_reply",
+    "lookup_order"
+  ],
+  "tool_call_counts": {
+    "lookup_order": 1,
+    "compose_reply": 1
+  },
+  "llm_models_used": [],
+  "event_type_sequence": [
+    "RUN_START",
+    "TOOL_CALL",
+    "TOOL_CALL",
+    "RUN_END"
+  ],
+  "guardrail_events": [],
+  "final_status": "ok"
+}

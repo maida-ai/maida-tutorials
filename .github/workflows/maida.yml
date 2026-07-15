@@ -1,0 +1,21 @@
+name: Agent Regression Check
+on: [pull_request]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  broken-pr-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Run Maida regression gate
+        uses: maida-ai/maida-assert@V4
+        with:
+          agent-script: demos/broken_pr/order_status_agent.py
+          baseline: .maida/baselines/broken-pr-demo.json
+          policy: .maida/policy.yaml
+          maida-version: '@main'
