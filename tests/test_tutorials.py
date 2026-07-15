@@ -45,11 +45,29 @@ class TutorialConformanceTests(unittest.TestCase):
         ):
             self.assertIn(expected, source)
 
-    def test_openai_tutorial_uses_the_sdk_polling_fallback(self):
+    def test_openai_tutorial_pins_adapter_conformance_contract(self):
         source = notebook_source(Path("OpenAI/Mock OpenAI Agent.ipynb"))
 
-        self.assertIn("check `PROCESSOR.abort_exception` after each operation", source)
-        self.assertIn("PROCESSOR.raise_if_aborted()", source)
+        for expected in (
+            "set_trace_processors([openai_agents.PROCESSOR])",
+            '"llm_calls": 4',
+            '"tool_calls": 3',
+            '"tool_call_sequence": ["search", "calculator", "save_result"]',
+            '"event_type_sequence": [',
+            "assert success_signature == EXPECTED_SUCCESS_SIGNATURE",
+            'assert guarded_signature["final_status"] == "error"',
+            'assert guarded_signature["event_type_sequence"][-3:] == [',
+            '"LOOP_WARNING", "ERROR", "RUN_END"',
+            'raise AssertionError("Expected the loop guardrail to abort the workflow")',
+            "maida-ai[openai]",
+            "No active Maida run",
+            "standard `LLM_CALL` and `TOOL_CALL` events",
+            "Redaction and truncation",
+            "compatibility fallback for the SDK version locked by this tutorial",
+            "PROCESSOR.abort_exception",
+            "PROCESSOR.raise_if_aborted()",
+        ):
+            self.assertIn(expected, source)
 
     def test_langgraph_tutorial_pins_adapter_conformance_contract(self):
         source = notebook_source(Path("LangChain/Mock LangGraph Agent.ipynb"))
@@ -77,6 +95,19 @@ class TutorialConformanceTests(unittest.TestCase):
 
         self.assertIn("CrewAI/Mock CrewAI Agent.ipynb", readme)
         self.assertIn('uv pip install "maida-ai[crewai]"', readme)
+
+    def test_readme_summarizes_openai_conformance_and_failure_paths(self):
+        readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+        openai_section = readme.split(
+            "### 3. Debug an OpenAI Agents Workflow (`OpenAI/`)", 1
+        )[1].split("### 4. Debug a CrewAI Workflow (`CrewAI/`)", 1)[0]
+
+        for expected in (
+            "four LLM calls, three tool calls, and `search → calculator → save_result`",
+            "`LOOP_WARNING → ERROR → RUN_END(status=error)`",
+            "Missing dependencies, inactive-run behavior, normalized events, and Maida's storage redaction/truncation",
+        ):
+            self.assertIn(expected, openai_section)
 
 
 if __name__ == "__main__":
