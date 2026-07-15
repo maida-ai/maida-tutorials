@@ -11,7 +11,7 @@ ORDER = {
     "status": "shipped",
     "arrival_day": "Friday",
 }
-DEFAULT_LOOKUPS = 1
+DEFAULT_LOOKUPS = 4
 
 
 def lookup_order(order_id: str) -> dict[str, str]:
