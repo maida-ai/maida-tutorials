@@ -3,7 +3,9 @@
 *.json
 *.jsonl
 .maida/demo-runs/
+.maida/coding-agent-runs/
 !.maida/baselines/broken-pr-demo.json
+!.maida/baselines/coding-agent-refactor.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
