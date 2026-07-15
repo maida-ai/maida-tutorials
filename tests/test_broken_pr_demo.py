@@ -14,6 +14,7 @@ EXPECTED_REPLY = "Order ORD-1042 has shipped and will arrive Friday."
 BASELINE_PATH = REPO_ROOT / ".maida" / "baselines" / "broken-pr-demo.json"
 POLICY_PATH = REPO_ROOT / ".maida" / "policy.yaml"
 WORKFLOW_PATH = REPO_ROOT / ".github" / "workflows" / "maida.yml"
+DEMO_README_PATH = REPO_ROOT / "demos" / "broken_pr" / "README.md"
 
 
 class BrokenPrDemoTests(unittest.TestCase):
@@ -165,6 +166,34 @@ class BrokenPrDemoTests(unittest.TestCase):
         self.assertIn("`tool_calls`", assertion.stdout)
         self.assertIn("`no_loops`", assertion.stdout)
         self.assertIn("5 tool calls (baseline: 2", assertion.stdout)
+
+    def test_demo_readme_teaches_local_pass_and_failure_without_run_ids(self):
+        readme = DEMO_README_PATH.read_text(encoding="utf-8")
+
+        for expected in (
+            "uv run python demos/broken_pr/order_status_agent.py --lookups 1",
+            "uv run python demos/broken_pr/order_status_agent.py --lookups 4",
+            "uv run maida assert",
+            ".maida/baselines/broken-pr-demo.json",
+            ".maida/policy.yaml",
+            "exit code `0`",
+            "exit code `1`",
+            "## ❌ Maida verdict: fail",
+            "| Tool calls | 2 | 5 | +150% |",
+            "`lookup_order` — repeated 1 -> 4 calls",
+            "not a live pull request comment",
+            "https://github.com/maida-ai/maida",
+            "https://github.com/maida-ai/maida/blob/main/docs/regression-testing.md",
+        ):
+            self.assertIn(expected, readme)
+
+        self.assertNotIn("<TRACE_ID>", readme)
+        self.assertNotIn("maida list |", readme)
+
+    def test_root_readme_links_to_the_broken_pr_demo(self):
+        readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("[Broken PR demo](demos/broken_pr/)", readme)
 
 
 if __name__ == "__main__":

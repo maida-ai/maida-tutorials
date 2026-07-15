@@ -2,6 +2,12 @@
 
 Interactive Jupyter notebooks for learning how to trace and debug AI agents with Maida.AI. All notebooks run without API keys or network calls. They use deterministic stubs and fake models.
 
+## Start with a broken PR
+
+The [Broken PR demo](demos/broken_pr/) is the shortest path from a known-good
+agent run to a failing behavioral regression gate. It is deterministic, needs
+no API key, and shows how an unchanged final answer can hide repeated tool work.
+
 ## Version policy
 
 These tutorials intentionally track the latest Maida behavior. Install the current `maida-ai` package and `maida` CLI when running them; older Maida releases and older trace formats are not a compatibility target for this repo.
