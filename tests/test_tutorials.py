@@ -45,6 +45,28 @@ class TutorialConformanceTests(unittest.TestCase):
         ):
             self.assertIn(expected, source)
 
+    def test_crewai_tutorial_pins_adapter_conformance_contract(self):
+        source = notebook_source(Path("CrewAI/Mock CrewAI Agent.ipynb"))
+
+        for expected in (
+            '"llm_calls": 4',
+            '"tool_calls": 3',
+            '"tool_call_sequence": ["search", "calculator", "save_result"]',
+            '"event_type_sequence": [',
+            "assert success_signature == EXPECTED_SUCCESS_SIGNATURE",
+            '"tool_call_sequence": ["calculator"]',
+            "assert failure_signature == EXPECTED_FAILURE_SIGNATURE",
+            'assert failure_tool_events[0]["payload"]["status"] == "error"',
+            'assert failure_tool_events[0]["meta"]["crewai"]["completion"] == "missing_after_hook"',
+            'assert guarded_signature["final_status"] == "error"',
+            'assert guarded_signature["event_type_sequence"][-3:] == [',
+            '"LOOP_WARNING", "ERROR", "RUN_END"',
+            'raise AssertionError("Expected the loop guardrail to abort the workflow")',
+            "maida_crewai.raise_if_aborted()",
+            "standard `LLM_CALL` and `TOOL_CALL` events",
+        ):
+            self.assertIn(expected, source)
+
     def test_openai_tutorial_pins_adapter_conformance_contract(self):
         source = notebook_source(Path("OpenAI/Mock OpenAI Agent.ipynb"))
 
@@ -95,6 +117,20 @@ class TutorialConformanceTests(unittest.TestCase):
 
         self.assertIn("CrewAI/Mock CrewAI Agent.ipynb", readme)
         self.assertIn('uv pip install "maida-ai[crewai]"', readme)
+
+    def test_readme_summarizes_crewai_conformance_and_failure_paths(self):
+        readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+        crewai_section = readme.split(
+            "### 4. Debug a CrewAI Workflow (`CrewAI/`)", 1
+        )[1].split("## Running the notebooks", 1)[0]
+
+        for expected in (
+            "four LLM calls, three tool calls, and `search → calculator → save_result`",
+            "error-status `TOOL_CALL` and `RUN_END(status=error)`",
+            "`LOOP_WARNING → ERROR → RUN_END(status=error)`",
+            "Missing dependencies, inactive-run behavior, normalized events, and Maida's storage redaction/truncation",
+        ):
+            self.assertIn(expected, crewai_section)
 
     def test_readme_summarizes_openai_conformance_and_failure_paths(self):
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
