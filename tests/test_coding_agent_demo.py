@@ -172,6 +172,22 @@ class CodingAgentDemoTests(unittest.TestCase):
         self.assertNotIn("<TRACE_ID>", readme)
         self.assertNotIn("maida list |", readme)
 
+    def test_root_readme_connects_the_skill_pack_and_demo(self):
+        readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+
+        for expected in (
+            "[coding-agent refactor demo](demos/coding_agent_refactor/)",
+            "https://github.com/maida-ai/skills/tree/main/product",
+            "`maida-instrument-agent`",
+            "`maida-add-regression-gate`",
+            "`maida-debug-gate`",
+            "Codex, Claude Code, and OpenCode",
+            "reviewable local diff",
+            "does not push commits or upload traces",
+            "https://github.com/maida-ai/opencode-plugin",
+        ):
+            self.assertIn(expected, readme)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -68,7 +68,7 @@ class BrokenPrDemoTests(unittest.TestCase):
         )
 
     def test_default_run_records_one_lookup_and_one_reply(self):
-        result, data_dir, environment = self.run_agent("--lookups", "1")
+        result, data_dir, environment = self.run_agent()
 
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stdout.strip(), EXPECTED_REPLY)
@@ -149,7 +149,7 @@ class BrokenPrDemoTests(unittest.TestCase):
         self.assertIn("!.maida/baselines/broken-pr-demo.json", ignore_rules)
 
     def test_passing_trace_satisfies_the_committed_gate(self):
-        result, _data_dir, environment = self.run_agent("--lookups", "1")
+        result, _data_dir, environment = self.run_agent()
         self.assertEqual(result.returncode, 0, result.stderr)
 
         assertion = self.run_gate(environment)

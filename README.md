@@ -8,6 +8,28 @@ The [Broken PR demo](demos/broken_pr/) is the shortest path from a known-good
 agent run to a failing behavioral regression gate. It is deterministic, needs
 no API key, and shows how an unchanged final answer can hide repeated tool work.
 
+## Adopt Maida with a coding agent
+
+The canonical [Maida coding-agent skill pack](https://github.com/maida-ai/skills/tree/main/product)
+provides three explicit workflows for Codex, Claude Code, and OpenCode:
+
+- `maida-instrument-agent` inspects the repository and adds the smallest fitting
+  Maida integration.
+- `maida-add-regression-gate` creates and reviews the baseline, policy, and CI
+  gate.
+- `maida-debug-gate` traces a failed report back to the behavioral change before
+  deciding whether to fix the code or deliberately accept new behavior.
+
+Each workflow starts by reading the project's own instructions and structure,
+then leaves a reviewable local diff. It does not push commits or upload traces.
+The pack does not claim to inject Maida automatically into arbitrary repositories.
+
+Use the [coding-agent refactor demo](demos/coding_agent_refactor/) to see the
+complete offline story: a plausible refactor still reports passing tests, but
+Maida blocks it because the agent silently repeats the test command. OpenCode
+users can pair the skills with the [Maida OpenCode plugin](https://github.com/maida-ai/opencode-plugin)
+and its deterministic event-replay demo.
+
 ## Version policy
 
 These tutorials intentionally track the latest Maida behavior. Install the current `maida-ai` package and `maida` CLI when running them; older Maida releases and older trace formats are not a compatibility target for this repo.
