@@ -138,7 +138,8 @@ class CodingAgentDemoTests(unittest.TestCase):
 
         assertion = self.run_gate(environment)
         self.assertEqual(assertion.returncode, 0, assertion.stdout + assertion.stderr)
-        self.assertIn("no behavioral regression", assertion.stdout)
+        self.assertIn("## ✅ Maida verdict: pass", assertion.stdout)
+        self.assertIn("All 8 checks passed", assertion.stdout)
 
     def test_repeated_tests_fail_the_gate(self):
         result, _data_dir, environment = self.run_agent("--mode", "regression")
@@ -146,7 +147,8 @@ class CodingAgentDemoTests(unittest.TestCase):
 
         assertion = self.run_gate(environment)
         self.assertEqual(assertion.returncode, 1, assertion.stdout + assertion.stderr)
-        self.assertIn("agent behavior regressed", assertion.stdout)
+        self.assertIn("## ❌ Maida verdict: fail", assertion.stdout)
+        self.assertIn("3 of 8 checks failed", assertion.stdout)
         self.assertIn("`tool_calls`", assertion.stdout)
         self.assertIn("`no_loops`", assertion.stdout)
         self.assertIn("5 tool calls (baseline: 3", assertion.stdout)

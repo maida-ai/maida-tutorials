@@ -8,6 +8,12 @@ The [Broken PR demo](demos/broken_pr/) is the shortest path from a known-good
 agent run to a failing behavioral regression gate. It is deterministic, needs
 no API key, and shows how an unchanged final answer can hide repeated tool work.
 
+## Gate traces already captured in Langfuse
+
+The [Langfuse import demo](demos/langfuse_import/) runs the real importer
+against a loopback fake API. It needs no account or API key and deterministically
+shows idempotent import, baseline pass, and a structural regression failure.
+
 ## Adopt Maida with a coding agent
 
 The canonical [Maida coding-agent skill pack](https://github.com/maida-ai/skills/tree/main/product)
@@ -32,7 +38,10 @@ and its deterministic event-replay demo.
 
 ## Version policy
 
-These tutorials intentionally track the latest Maida behavior. Install the current `maida-ai` package and `maida` CLI when running them; older Maida releases and older trace formats are not a compatibility target for this repo.
+These tutorials intentionally track the latest Maida behavior. The lock file
+pins the current Maida `main` revision until these features are included in a
+PyPI release. Older Maida releases and older trace formats are not a
+compatibility target for this repo.
 
 ## Notebooks
 

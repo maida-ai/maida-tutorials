@@ -7,7 +7,7 @@ requires-python = ">=3.10,<3.14"
 dependencies = [
     "jupyter",
     "ipykernel",
-    "maida-ai",
+    "maida-ai @ git+https://github.com/maida-ai/maida.git@main",
 ]
 
 [project.optional-dependencies]
