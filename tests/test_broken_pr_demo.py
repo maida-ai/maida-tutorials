@@ -136,7 +136,7 @@ class BrokenPrDemoTests(unittest.TestCase):
         workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
         for expected in (
             "actions/checkout@v7",
-            "maida-ai/maida-assert@V4",
+            "maida-ai/maida-assert@main",
             "agent-script: demos/broken_pr/order_status_agent.py",
             "baseline: .maida/baselines/broken-pr-demo.json",
             "policy: .maida/policy.yaml",
@@ -154,7 +154,8 @@ class BrokenPrDemoTests(unittest.TestCase):
 
         assertion = self.run_gate(environment)
         self.assertEqual(assertion.returncode, 0, assertion.stdout + assertion.stderr)
-        self.assertIn("no behavioral regression", assertion.stdout)
+        self.assertIn("## ✅ Maida verdict: pass", assertion.stdout)
+        self.assertIn("All 8 checks passed", assertion.stdout)
 
     def test_repeated_trace_fails_the_committed_gate(self):
         result, _data_dir, environment = self.run_agent("--lookups", "4")
@@ -162,7 +163,8 @@ class BrokenPrDemoTests(unittest.TestCase):
 
         assertion = self.run_gate(environment)
         self.assertEqual(assertion.returncode, 1, assertion.stdout + assertion.stderr)
-        self.assertIn("agent behavior regressed", assertion.stdout)
+        self.assertIn("## ❌ Maida verdict: fail", assertion.stdout)
+        self.assertIn("3 of 8 checks failed", assertion.stdout)
         self.assertIn("`tool_calls`", assertion.stdout)
         self.assertIn("`no_loops`", assertion.stdout)
         self.assertIn("5 tool calls (baseline: 2", assertion.stdout)

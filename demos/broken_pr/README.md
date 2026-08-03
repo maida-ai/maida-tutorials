@@ -19,7 +19,7 @@ Two committed files define the expected behavior:
   tool calls, or token cost; rejects loops, guardrails, new tools, and non-`ok`
   terminal status; and ignores ordinary local timing noise.
 
-The workflow uses [`maida-ai/maida-assert@V4`](https://github.com/maida-ai/maida-assert)
+The workflow uses [`maida-ai/maida-assert@main`](https://github.com/maida-ai/maida-assert)
 with current Maida. The [Maida repository](https://github.com/maida-ai/maida)
 and [regression-testing guide](https://github.com/maida-ai/maida/blob/main/docs/regression-testing.md)
 cover the full baseline and policy workflow.
