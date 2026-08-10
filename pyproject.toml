@@ -7,16 +7,16 @@ requires-python = ">=3.10,<3.14"
 dependencies = [
     "jupyter",
     "ipykernel",
-    "maida-ai @ git+https://github.com/maida-ai/maida.git@main",
+    "maida-ai>=0.5",
 ]
 
 [project.optional-dependencies]
 crewai = [
-    "maida-ai[crewai]",
+    "maida-ai[crewai]>=0.5",
 ]
 langchain = [
-    "maida-ai[langchain]",
+    "maida-ai[langchain]>=0.5",
 ]
 openai = [
-    "maida-ai[openai]",
+    "maida-ai[openai]>=0.5",
 ]
