@@ -19,7 +19,7 @@ Two committed files define the expected behavior:
   tool calls, or token cost; rejects loops, guardrails, new tools, and non-`ok`
   terminal status; and ignores ordinary local timing noise.
 
-The workflow uses [`maida-ai/maida-assert@main`](https://github.com/maida-ai/maida-assert)
+The workflow uses [`maida-ai/maida-assert@v5`](https://github.com/maida-ai/maida-assert)
 with current Maida. The [Maida repository](https://github.com/maida-ai/maida)
 and [regression-testing guide](https://github.com/maida-ai/maida/blob/main/docs/regression-testing.md)
 cover the full baseline and policy workflow.
@@ -67,7 +67,7 @@ instead of two, and a loop warning.
 ## Locally reproduced report preview
 
 The stable lines below were reproduced locally against current Maida—the same
-source selected by `maida-version: '@main'` in the workflow. They preview the
+source selected by `maida-version: 'v0.5.0'` in the workflow. They preview the
 report that the Action can render in CI, not a live pull request comment. The
 released version in this repository's lock file reports the same regression but
 may format its Markdown differently. Run-specific IDs and latency are omitted.

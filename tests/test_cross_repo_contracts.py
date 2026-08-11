@@ -26,7 +26,7 @@ class CrossRepoContractTests(unittest.TestCase):
         workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
 
         self.assertIn(f"uses: {contract['action_ref']}", workflow)
-        self.assertIn(f"maida-version: '@{contract['engine_ref']}'", workflow)
+        self.assertIn(f"maida-version: '{contract['engine_ref']}'", workflow)
 
     def test_workflow_does_not_pin_stale_uppercase_action_tags(self):
         workflow = WORKFLOW_PATH.read_text(encoding="utf-8")

@@ -136,11 +136,11 @@ class BrokenPrDemoTests(unittest.TestCase):
         workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
         for expected in (
             "actions/checkout@v7",
-            "maida-ai/maida-assert@main",
+            "maida-ai/maida-assert@v5",
             "agent-script: demos/broken_pr/order_status_agent.py",
             "baseline: .maida/baselines/broken-pr-demo.json",
             "policy: .maida/policy.yaml",
-            "maida-version: '@main'",
+            "maida-version: 'v0.5.0'",
         ):
             self.assertIn(expected, workflow)
 
