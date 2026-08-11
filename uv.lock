@@ -2231,16 +2231,21 @@ wheels = [
 
 [[package]]
 name = "maida-ai"
-version = "0.4.0.post70.dev0+5dca811"
-source = { git = "https://github.com/maida-ai/maida.git?rev=main#5dca811ce2860a03e30fd94640c52cbaa72a5ff5" }
+version = "0.5.0"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "fastapi" },
     { name = "opentelemetry-api" },
     { name = "opentelemetry-exporter-otlp-proto-http" },
+    { name = "opentelemetry-proto" },
     { name = "opentelemetry-sdk" },
     { name = "pyyaml" },
     { name = "typer" },
     { name = "uvicorn" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a6/4a/46630bf504ec0a72144d8948650d3b0e2a338464466564ef92984196016a/maida_ai-0.5.0.tar.gz", hash = "sha256:32d3f5428b0a7d1fbb3ae432299176747c5245e35b26c69922a686e9d6ab5e40", size = 9140682, upload-time = "2026-08-11T00:58:44.082Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a6/62/01db7de0a71b23311b4cee73926d2fc756bb2f61c353f78621adace1adb0/maida_ai-0.5.0-py3-none-any.whl", hash = "sha256:f6139a4528f36d7b03af369dae9d26f8d9bf69dcda6a1f62264726d4ee58b286", size = 193067, upload-time = "2026-08-11T00:58:41.824Z" },
 ]
 
 [package.optional-dependencies]
@@ -4773,10 +4778,10 @@ openai = [
 requires-dist = [
     { name = "ipykernel" },
     { name = "jupyter" },
-    { name = "maida-ai", git = "https://github.com/maida-ai/maida.git?rev=main" },
-    { name = "maida-ai", extras = ["crewai"], marker = "extra == 'crewai'" },
-    { name = "maida-ai", extras = ["langchain"], marker = "extra == 'langchain'" },
-    { name = "maida-ai", extras = ["openai"], marker = "extra == 'openai'" },
+    { name = "maida-ai", specifier = ">=0.5" },
+    { name = "maida-ai", extras = ["crewai"], marker = "extra == 'crewai'", specifier = ">=0.5" },
+    { name = "maida-ai", extras = ["langchain"], marker = "extra == 'langchain'", specifier = ">=0.5" },
+    { name = "maida-ai", extras = ["openai"], marker = "extra == 'openai'", specifier = ">=0.5" },
 ]
 provides-extras = ["crewai", "langchain", "openai"]
 
