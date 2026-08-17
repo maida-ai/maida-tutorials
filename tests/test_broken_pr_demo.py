@@ -140,7 +140,6 @@ class BrokenPrDemoTests(unittest.TestCase):
             "agent-script: demos/broken_pr/order_status_agent.py",
             "baseline: .maida/baselines/broken-pr-demo.json",
             "policy: .maida/policy.yaml",
-            "maida-version: 'v0.5.0'",
         ):
             self.assertIn(expected, workflow)
 

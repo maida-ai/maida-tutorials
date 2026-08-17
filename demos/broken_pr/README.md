@@ -67,7 +67,7 @@ instead of two, and a loop warning.
 ## Locally reproduced report preview
 
 The stable lines below were reproduced locally against current Maida—the same
-source selected by `maida-version: 'v0.5.0'` in the workflow. They preview the
+engine tag selected by `maida-version` in the workflow. They preview the
 report that the Action can render in CI, not a live pull request comment. The
 released version in this repository's lock file reports the same regression but
 may format its Markdown differently. Run-specific IDs and latency are omitted.
