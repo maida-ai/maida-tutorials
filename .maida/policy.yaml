@@ -1,11 +1,13 @@
 # Strict demo policy: any structural growth fails the gate.
-assert:
-  step_tolerance: 0
-  tool_call_tolerance: 0
-  cost_tolerance: 0
+version: 2
+metrics:
+  step_count: {kind: measured, direction: upper, tolerance: {relative: 0}}
+  tool_call_count: {kind: measured, direction: upper, tolerance: {relative: 0}}
+  cost_tokens: {kind: measured, direction: upper, tolerance: {relative: 0}}
   # Local scheduling noise is not the behavior this demo teaches.
-  duration_tolerance: 1000
-  no_loops: true
-  no_guardrails: true
-  no_new_tools: true
-  expect_status: ok
+  latency_ms: {kind: measured, direction: upper, tolerance: {relative: 1000}}
+  no_loops: {kind: invariant, require: true}
+  no_guardrails: {kind: invariant, require: true}
+  # Both known tools must remain; the tool-call bound rejects additions.
+  required_tools: {kind: invariant, all_of: [lookup_order, compose_reply]}
+  stop_condition_reached: {kind: invariant, require: true}
