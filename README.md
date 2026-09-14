@@ -134,3 +134,7 @@ maida view
 
 Policy files require an explicit supported v2+ version (`version: 2` for these
 examples). Policy v1 and files without a version are unsupported.
+
+The restored baseline-relative `no_new_tools` rule requires engine commit
+`e69109354f881758d32c4d659fe368ba04049fa2`, pinned in the lockfile and CI
+so both evaluate the same rules.

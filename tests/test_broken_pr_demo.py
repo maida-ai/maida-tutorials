@@ -6,7 +6,6 @@ import tempfile
 import unittest
 from pathlib import Path
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 AGENT_SCRIPT = REPO_ROOT / "demos" / "broken_pr" / "order_status_agent.py"
 MAIDA_BIN = Path(sys.executable).with_name("maida")
@@ -129,7 +128,7 @@ class BrokenPrDemoTests(unittest.TestCase):
             "latency_ms: {kind: measured, direction: upper, tolerance: {relative: 1000}}",
             "no_loops: {kind: invariant, require: true}",
             "no_guardrails: {kind: invariant, require: true}",
-            "required_tools: {kind: invariant, all_of: [lookup_order, compose_reply]}",
+            "no_new_tools: {kind: invariant, require: true}",
             "stop_condition_reached: {kind: invariant, require: true}",
         ):
             self.assertIn(expected, policy)
