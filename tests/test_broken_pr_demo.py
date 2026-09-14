@@ -122,14 +122,15 @@ class BrokenPrDemoTests(unittest.TestCase):
     def test_policy_and_workflow_pin_the_demo_gate_contract(self):
         policy = POLICY_PATH.read_text(encoding="utf-8")
         for expected in (
-            "step_tolerance: 0",
-            "tool_call_tolerance: 0",
-            "cost_tolerance: 0",
-            "duration_tolerance: 1000",
-            "no_loops: true",
-            "no_guardrails: true",
-            "no_new_tools: true",
-            "expect_status: ok",
+            "version: 2",
+            "step_count: {kind: measured, direction: upper, tolerance: {relative: 0}}",
+            "tool_call_count: {kind: measured, direction: upper, tolerance: {relative: 0}}",
+            "cost_tokens: {kind: measured, direction: upper, tolerance: {relative: 0}}",
+            "latency_ms: {kind: measured, direction: upper, tolerance: {relative: 1000}}",
+            "no_loops: {kind: invariant, require: true}",
+            "no_guardrails: {kind: invariant, require: true}",
+            "required_tools: {kind: invariant, all_of: [lookup_order, compose_reply]}",
+            "stop_condition_reached: {kind: invariant, require: true}",
         ):
             self.assertIn(expected, policy)
 
@@ -164,9 +165,9 @@ class BrokenPrDemoTests(unittest.TestCase):
         self.assertEqual(assertion.returncode, 1, assertion.stdout + assertion.stderr)
         self.assertIn("## ❌ Maida verdict: fail", assertion.stdout)
         self.assertIn("3 of 8 checks failed", assertion.stdout)
-        self.assertIn("`tool_calls`", assertion.stdout)
+        self.assertIn("`tool_call_count`", assertion.stdout)
         self.assertIn("`no_loops`", assertion.stdout)
-        self.assertIn("5 tool calls (baseline: 2", assertion.stdout)
+        self.assertIn("tool_call_count: expected", assertion.stdout)
 
     def test_demo_readme_teaches_local_pass_and_failure_without_run_ids(self):
         readme = DEMO_README_PATH.read_text(encoding="utf-8")

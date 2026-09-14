@@ -131,3 +131,6 @@ Open the notebook of your choice and run all cells in order. After each run, sta
 ```bash
 maida view
 ```
+
+Policy files require an explicit supported v2+ version (`version: 2` for these
+examples). Policy v1 and files without a version are unsupported.
