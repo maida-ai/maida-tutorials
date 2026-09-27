@@ -8,6 +8,5 @@ metrics:
   latency_ms: {kind: measured, direction: upper, tolerance: {relative: 1000}}
   no_loops: {kind: invariant, require: true}
   no_guardrails: {kind: invariant, require: true}
-  # Both known tools must remain; the tool-call bound rejects additions.
-  required_tools: {kind: invariant, all_of: [lookup_order, compose_reply]}
+  no_new_tools: {kind: invariant, require: true}
   stop_condition_reached: {kind: invariant, require: true}

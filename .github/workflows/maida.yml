@@ -19,4 +19,4 @@ jobs:
           agent-script: demos/broken_pr/order_status_agent.py
           baseline: .maida/baselines/broken-pr-demo.json
           policy: .maida/policy.yaml
-          maida-version: 'v0.5.2.post1'
+          maida-version: "@e69109354f881758d32c4d659fe368ba04049fa2"

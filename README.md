@@ -2,6 +2,10 @@
 
 Interactive Jupyter notebooks for learning how to trace and debug AI agents with Maida.AI. All notebooks run without API keys or network calls. They use deterministic stubs and fake models.
 
+## Versioning
+
+When numbered releases are published, this repository uses the tested Maida engine's `MAJOR.MINOR` compatibility line and its own `PATCH` number. A tutorial's dependency and workflow pins must name versions tested together, including the `maida-ai` package and the Action when used. Do not publish an empty release solely because the engine advanced. Use an immutable full `vMAJOR.MINOR.PATCH` tag for each release. Existing `0.1.0` project metadata is historical until a new, tested release is prepared. Follow the [cross-repository compatibility policy](https://github.com/maida-ai/maida/blob/main/CONTRIBUTING.md#versioning-and-compatibility).
+
 ## Start with a broken PR
 
 The [Broken PR demo](demos/broken_pr/) is the shortest path from a known-good
@@ -93,8 +97,10 @@ Uses the OpenAI Agents SDK tracing API (`generation_span`, `function_span`) with
 
 ### 4. Debug a CrewAI Workflow (`CrewAI/`)
 
+**NOTE:** CrewAI support was dropped after v0.5.3 because crewai dependency conflicts block Python 3.14 and openai upgrades. The adapter code remains in-tree; the `[crewai]` extra does not. See the [CrewAI guide](https://maida.ai/docs/integrations/crewai/) for details and the v0.5.3 pin.
+
 **File:** `CrewAI/Mock CrewAI Agent.ipynb`
-**Install:** `uv pip install "maida-ai[crewai]"`
+**Install:** `uv pip install "maida-ai[crewai]==0.5.3"`
 
 Runs the same deterministic search → calculate → save workflow through CrewAI's public execution-hook API. Covers:
 
@@ -120,7 +126,7 @@ uv pip install "maida-ai[langchain]"
 uv pip install "maida-ai[openai]" openai-agents
 
 # For CrewAI notebook
-uv pip install "maida-ai[crewai]"
+uv pip install "maida-ai[crewai]==0.5.3"
 
 # Start Jupyter
 jupyter notebook
@@ -134,3 +140,7 @@ maida view
 
 Policy files require an explicit supported v2+ version (`version: 2` for these
 examples). Policy v1 and files without a version are unsupported.
+
+The restored baseline-relative `no_new_tools` rule requires engine commit
+`e69109354f881758d32c4d659fe368ba04049fa2`, pinned in the lockfile and CI
+so both evaluate the same rules.

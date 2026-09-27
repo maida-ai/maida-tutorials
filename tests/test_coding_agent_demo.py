@@ -6,11 +6,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
-AGENT_SCRIPT = (
-    REPO_ROOT / "demos" / "coding_agent_refactor" / "refactoring_agent.py"
-)
+AGENT_SCRIPT = REPO_ROOT / "demos" / "coding_agent_refactor" / "refactoring_agent.py"
 MAIDA_BIN = Path(sys.executable).with_name("maida")
 EXPECTED_REPLY = "Refactor complete; 12 tests passed."
 BASELINE_PATH = REPO_ROOT / ".maida" / "baselines" / "coding-agent-refactor.json"
@@ -149,9 +146,12 @@ class CodingAgentDemoTests(unittest.TestCase):
         self.assertEqual(assertion.returncode, 1, assertion.stdout + assertion.stderr)
         self.assertIn("## ❌ Maida verdict: fail", assertion.stdout)
         self.assertIn("3 of 8 checks failed", assertion.stdout)
-        self.assertIn("`tool_calls`", assertion.stdout)
+        self.assertIn("`tool_call_count`", assertion.stdout)
         self.assertIn("`no_loops`", assertion.stdout)
-        self.assertIn("5 tool calls (baseline: 3", assertion.stdout)
+        self.assertIn(
+            "tool_call_count: expected {'lower': None, 'upper': 3.0}; observed 5.0",
+            assertion.stdout,
+        )
 
     def test_demo_readme_is_local_first_and_uses_latest_run_defaults(self):
         readme = DEMO_README_PATH.read_text(encoding="utf-8")
