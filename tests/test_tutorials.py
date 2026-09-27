@@ -35,7 +35,7 @@ class TutorialConformanceTests(unittest.TestCase):
             "LLMCallHookContext",
             "ToolCallHookContext",
             "CREWAI_STORAGE_DIR",
-            "maida-ai[crewai]",
+            "maida-ai[crewai]==0.5.3",
             "run_crewai_failure_path",
             "tutorial-secret",
             "Failure cases and limitations",
@@ -116,7 +116,7 @@ class TutorialConformanceTests(unittest.TestCase):
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
 
         self.assertIn("CrewAI/Mock CrewAI Agent.ipynb", readme)
-        self.assertIn('uv pip install "maida-ai[crewai]"', readme)
+        self.assertIn('uv pip install "maida-ai[crewai]==0.5.3"', readme)
 
     def test_readme_summarizes_crewai_conformance_and_failure_paths(self):
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")

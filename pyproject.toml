@@ -12,7 +12,7 @@ dependencies = [
 
 [project.optional-dependencies]
 crewai = [
-    "maida-ai[crewai]>=0.5",
+    "maida-ai[crewai]==0.5.3",
 ]
 langchain = [
     "maida-ai[langchain]>=0.5",
