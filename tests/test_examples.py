@@ -19,17 +19,30 @@ class ExampleTests(unittest.TestCase):
         self.addCleanup(self.temporary.cleanup)
         self.directory = Path(self.temporary.name)
         self.environment = os.environ.copy()
-        self.environment.update(HOME=str(self.directory), MAIDA_DATA_DIR=str(self.directory / "data"),
-                                CREWAI_STORAGE_DIR=str(self.directory / "crewai"),
-                                CREWAI_DISABLE_TELEMETRY="true")
+        self.environment.update(
+            HOME=str(self.directory),
+            MAIDA_DATA_DIR=str(self.directory / "data"),
+            CREWAI_STORAGE_DIR=str(self.directory / "crewai"),
+            CREWAI_DISABLE_TELEMETRY="true",
+        )
 
     def run_example(self, path, *args):
-        result = subprocess.run([sys.executable, str(ROOT / path), *args], cwd=ROOT,
-                                env=self.environment, text=True, capture_output=True)
+        result = subprocess.run(
+            [sys.executable, str(ROOT / path), *args],
+            cwd=ROOT,
+            env=self.environment,
+            text=True,
+            capture_output=True,
+        )
         self.assertEqual(result.returncode, 0, result.stderr)
         export = self.directory / "export.json"
-        result = subprocess.run([str(MAIDA), "export", "--out", str(export)], cwd=ROOT,
-                                env=self.environment, text=True, capture_output=True)
+        result = subprocess.run(
+            [str(MAIDA), "export", "--out", str(export)],
+            cwd=ROOT,
+            env=self.environment,
+            text=True,
+            capture_output=True,
+        )
         self.assertEqual(result.returncode, 0, result.stderr)
         return json.loads(export.read_text())
 
@@ -42,22 +55,33 @@ class ExampleTests(unittest.TestCase):
     def verify_regression(self, path, tool):
         for args, expected in (((), 1), (("--regression",), 3)):
             exported = self.run_example(path, *args)
-            calls = [event for event in exported["events"]
-                     if event["event_type"] == "TOOL_CALL" and event["name"] == tool]
+            calls = [
+                event
+                for event in exported["events"]
+                if event["event_type"] == "TOOL_CALL" and event["name"] == tool
+            ]
             self.assertEqual(len(calls), expected)
-        invalid = subprocess.run([sys.executable, str(ROOT / path), "--unknown-option"],
-                                 env=self.environment, text=True, capture_output=True)
+        invalid = subprocess.run(
+            [sys.executable, str(ROOT / path), "--unknown-option"],
+            env=self.environment,
+            text=True,
+            capture_output=True,
+        )
         self.assertEqual(invalid.returncode, 2)
 
     @unittest.skipUnless(importlib.util.find_spec("agents"), "install the openai extra")
     def test_openai_example_records_success_and_regression_offline(self):
         self.verify_regression("examples/openai_agents/minimal.py", "lookup_docs")
 
-    @unittest.skipUnless(importlib.util.find_spec("crewai"), "historical CrewAI environment is separate")
+    @unittest.skipUnless(
+        importlib.util.find_spec("crewai"), "historical CrewAI environment is separate"
+    )
     def test_historical_crewai_example_records_success_and_regression_offline(self):
         self.verify_regression("examples/crewai/minimal.py", "search_docs")
 
-    @unittest.skipUnless(importlib.util.find_spec("langchain_core"), "install the langchain extra")
+    @unittest.skipUnless(
+        importlib.util.find_spec("langchain_core"), "install the langchain extra"
+    )
     def test_langchain_example_records_a_real_callback(self):
         result = self.run_example("examples/langchain/minimal.py")
         self.assertEqual(result["run"]["counts"]["tool_calls"], 1)

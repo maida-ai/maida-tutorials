@@ -183,7 +183,6 @@ class CodingAgentDemoTests(unittest.TestCase):
             "`maida-instrument-agent`",
             "`maida-add-regression-gate`",
             "`maida-debug-gate`",
-            "Codex, Claude Code, and OpenCode",
             "reviewable local diff",
             "does not push commits or upload traces",
             "https://github.com/maida-ai/opencode-plugin",

@@ -1,25 +1,23 @@
 [project]
 name = "tutorials"
 version = "0.1.0"
-description = "Tutorials for building and Debugging AI Agents"
+description = "Practical tutorials and runnable examples for Maida behavioral regression gates"
 readme = "README.md"
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.12,<3.14"
 dependencies = [
-    "jupyter",
-    "ipykernel",
     "maida-ai>=0.5",
 ]
 
 [project.optional-dependencies]
-crewai = [
-    "maida-ai[crewai]==0.5.3",
-]
 langchain = [
     "maida-ai[langchain]>=0.5",
 ]
 openai = [
     "maida-ai[openai]>=0.5",
 ]
+
+[dependency-groups]
+notebooks = ["jupyter", "ipykernel"]
 
 [tool.uv.sources]
 maida-ai = { git = "https://github.com/maida-ai/maida", rev = "e69109354f881758d32c4d659fe368ba04049fa2" }

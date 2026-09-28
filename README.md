@@ -1,146 +1,44 @@
-# Maida Tutorials
+# Maida tutorials
 
-Interactive Jupyter notebooks for learning how to trace and debug AI agents with Maida.AI. All notebooks run without API keys or network calls. They use deterministic stubs and fake models.
+Don't let broken agent changes merge. Start with the [released coding-agent onboarding route](https://maida.ai/docs/getting-started/), then use one short lesson at a time here. This repository owns Maida's runnable examples, tutorials, and demos.
 
-## Versioning
+## See the gate once
 
-When numbered releases are published, this repository uses the tested Maida engine's `MAJOR.MINOR` compatibility line and its own `PATCH` number. A tutorial's dependency and workflow pins must name versions tested together, including the `maida-ai` package and the Action when used. Do not publish an empty release solely because the engine advanced. Use an immutable full `vMAJOR.MINOR.PATCH` tag for each release. Existing `0.1.0` project metadata is historical until a new, tested release is prepared. Follow the [cross-repository compatibility policy](https://github.com/maida-ai/maida/blob/main/CONTRIBUTING.md#versioning-and-compatibility).
-
-## Start with a broken PR
-
-The [Broken PR demo](demos/broken_pr/) is the shortest path from a known-good
-agent run to a failing behavioral regression gate. It is deterministic, needs
-no API key, and shows how an unchanged final answer can hide repeated tool work.
-
-## Gate traces already captured in Langfuse
-
-The [Langfuse import demo](demos/langfuse_import/) runs the real importer
-against a loopback fake API. It needs no account or API key and deterministically
-shows idempotent import, baseline pass, and a structural regression failure.
-
-## Adopt Maida with a coding agent
-
-The canonical [Maida coding-agent skill pack](https://github.com/maida-ai/skills/tree/main/product)
-provides three explicit workflows for Codex, Claude Code, and OpenCode:
-
-- `maida-instrument-agent` inspects the repository and adds the smallest fitting
-  Maida integration.
-- `maida-add-regression-gate` creates and reviews the baseline, policy, and CI
-  gate.
-- `maida-debug-gate` traces a failed report back to the behavioral change before
-  deciding whether to fix the code or deliberately accept new behavior.
-
-Each workflow starts by reading the project's own instructions and structure,
-then leaves a reviewable local diff. It does not push commits or upload traces.
-The pack does not claim to inject Maida automatically into arbitrary repositories.
-
-Use the [coding-agent refactor demo](demos/coding_agent_refactor/) to see the
-complete offline story: a plausible refactor still reports passing tests, but
-Maida blocks it because the agent silently repeats the test command. OpenCode
-users can pair the skills with the [Maida OpenCode plugin](https://github.com/maida-ai/opencode-plugin)
-and its deterministic event-replay demo.
-
-## Version policy
-
-These tutorials intentionally track the latest Maida behavior. The lock file
-pins the current Maida `main` revision until these features are included in a
-PyPI release. Older Maida releases and older trace formats are not a
-compatibility target for this repo.
-
-## Notebooks
-
-### 1. Stop a Runaway Agent (`Guardrails/`)
-
-**File:** `Guardrails/Stop a Runaway Agent.ipynb`
-**Install:** `uv pip install maida-ai`
-
-A minimal introduction using only the core Maida SDK with no framework dependencies. Builds a tiny local agent that loops on the same tool call and model call, then shows how to:
-
-- Observe a `LOOP_WARNING` in the timeline without stopping the run
-- Enable `stop_on_loop` to abort execution as soon as the pattern repeats
-- Compare the two runs side by side in `maida view`
-
-Good starting point if you want to understand guardrails before looking at framework integrations.
-
----
-
-### 2. Debug a LangGraph Agent (`LangChain/`)
-
-**File:** `LangChain/Mock LangGraph Agent.ipynb`
-**Install:** `uv pip install "maida-ai[langchain]"`
-
-Builds a multi-node LangGraph graph (search → calculate → save) using `FakeListLLM` and deterministic `@tool` functions. Covers:
-
-- Adding `LangChainCallbackHandler` to a LangGraph run
-- Verifying the exact happy-path signature: four LLM calls, three tool calls, and `search → calculator → save_result`
-- A looping agent that triggers `LOOP_WARNING`
-- Using `stop_on_loop` to abort the graph with `LOOP_WARNING → ERROR → RUN_END(status=error)`
-- Missing dependencies, inactive-run behavior, normalized events, and Maida's storage redaction/truncation
-
----
-
-### 3. Debug an OpenAI Agents Workflow (`OpenAI/`)
-
-**File:** `OpenAI/Mock OpenAI Agent.ipynb`
-**Install:** `uv pip install "maida-ai[openai]" openai-agents`
-
-Uses the OpenAI Agents SDK tracing API (`generation_span`, `function_span`) with deterministic inputs to drive the same quarterly-sales workflow without hitting any real model endpoint. Covers:
-
-- Registering the Maida OpenAI Agents tracing processor via `set_trace_processors`
-- Verifying the exact happy-path signature: four LLM calls, three tool calls, and `search → calculator → save_result`
-- A looping workflow that triggers `LOOP_WARNING`
-- Using `stop_on_loop` to finish with `LOOP_WARNING → ERROR → RUN_END(status=error)`
-- Missing dependencies, inactive-run behavior, normalized events, and Maida's storage redaction/truncation
-- Using `PROCESSOR.abort_exception` polling as a compatibility fallback for the SDK version locked by the tutorial
-
----
-
-### 4. Debug a CrewAI Workflow (`CrewAI/`)
-
-**NOTE:** CrewAI support was dropped after v0.5.3 because crewai dependency conflicts block Python 3.14 and openai upgrades. The adapter code remains in-tree; the `[crewai]` extra does not. See the [CrewAI guide](https://maida.ai/docs/integrations/crewai/) for details and the v0.5.3 pin.
-
-**File:** `CrewAI/Mock CrewAI Agent.ipynb`
-**Install:** `uv pip install "maida-ai[crewai]==0.5.3"`
-
-Runs the same deterministic search → calculate → save workflow through CrewAI's public execution-hook API. Covers:
-
-- Activating the Maida CrewAI execution hooks
-- Verifying the exact happy-path signature: four LLM calls, three tool calls, and `search → calculator → save_result`
-- Recording an incomplete tool call as an error-status `TOOL_CALL` and `RUN_END(status=error)` when the tool raises
-- Using `stop_on_loop` to abort repeated work with `LOOP_WARNING → ERROR → RUN_END(status=error)`
-- Keeping CrewAI state in a temporary directory and disabling its native telemetry
-- Missing dependencies, inactive-run behavior, normalized events, and Maida's storage redaction/truncation
-
----
-
-## Running the notebooks
+Use Python 3.12 or 3.13 for the walkthroughs and maintained labs.
 
 ```bash
-# From the repo root — install Maida and Jupyter
-uv pip install maida-ai jupyter
-
-# For LangChain notebook
-uv pip install "maida-ai[langchain]"
-
-# For OpenAI Agents notebook
-uv pip install "maida-ai[openai]" openai-agents
-
-# For CrewAI notebook
-uv pip install "maida-ai[crewai]==0.5.3"
-
-# Start Jupyter
-jupyter notebook
+uv tool install "maida-ai==0.5.3"
+maida demo --regression
 ```
 
-Open the notebook of your choice and run all cells in order. After each run, start the viewer in a terminal:
+No checkout or API key is needed. The simulated agent keeps a plausible final answer while repeating work; Maida shows a failing verdict and PR-comment preview. An expected `FAIL` is the lesson succeeding. This does not gate your project yet.
 
-```bash
-maida view
-```
+## Protect one real task
 
-Policy files require an explicit supported v2+ version (`version: 2` for these
-examples). Policy v1 and files without a version are unsupported.
+Follow the [coding-agent walkthrough](guides/coding-agent.md). It takes you through one normal task in your own repository, review of what was observed, a local gate, and one deliberately broken change. Stop after any checkpoint; you do not need to read the integration reference first.
 
-The restored baseline-relative `no_new_tools` rule requires engine commit
-`e69109354f881758d32c4d659fe368ba04049fa2`, pinned in the lockfile and CI
-so both evaluate the same rules.
+Building a Python tool-calling agent? Use the [Python agent walkthrough](guides/python-agent.md) instead.
+
+## Practice before changing your project
+
+- [Shipping refactor lab](demos/pr-gate/): a realistic small project, real tests, and a deterministic coding harness. See why editing a test to hide a defect deserves a failed check.
+- [coding-agent refactor demo](demos/coding_agent_refactor/): find repeated test runs hidden behind the same final answer.
+- [Broken PR demo](demos/broken_pr/): reproduce an unnecessary order lookup, then repair it.
+
+The practice labs explicitly simulate agent decisions and use pinned development snapshots where noted. They complement the released onboarding route; they do not establish that your live agent or GitHub branch protection works.
+
+## Go deeper when you need it
+
+- [Examples catalog](examples/README.md): minimal Python, framework adapters, and advanced examples migrated from the engine.
+- [Integration notebooks](guides/notebooks.md): optional notebook lessons and historical compatibility notes.
+- [Langfuse import demo](demos/langfuse_import/): read-only import using a local fake API.
+- [Demo catalog](demos/README.md): trace imports, behavior contracts, and archived experiments.
+- [Migration inventory](MIGRATION.md): where the former Demos repository and engine examples went.
+
+The [Maida coding-agent skill pack](https://github.com/maida-ai/skills/tree/main/product) provides `maida-instrument-agent`, `maida-add-regression-gate`, and `maida-debug-gate`. Each leaves a reviewable local diff and does not push commits or upload traces. See its integration list for supported coding agents. The [Maida OpenCode plugin](https://github.com/maida-ai/opencode-plugin) is another capture integration.
+
+## Contribute a lesson
+
+A lesson should start from a real developer task, state its checkpoint, show the expected result, exercise one failure and recovery, and keep all run data in a temporary or explicitly chosen local directory. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+The root lockfile pins an immutable development engine revision for the older reference labs, including restored `no_new_tools` behavior. The released route and its workflow test independently pin `maida-ai==0.5.3`. Do not present a development command as released onboarding. Repository releases follow the engine's `MAJOR.MINOR` compatibility line with their own `PATCH`, as described in the [cross-repository compatibility policy](https://github.com/maida-ai/maida/blob/main/CONTRIBUTING.md#versioning-and-compatibility).
