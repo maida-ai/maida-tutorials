@@ -1,30 +1,31 @@
 # Protect one coding task
 
-Start with the [released quickstart](https://maida.ai/docs/getting-started/). This walkthrough uses `maida-ai==0.5.3` and an actual task in your repository. Your normal coding agent may call its model provider; Maida keeps captured evidence locally. Pick one small, repeatable task, such as changing a validation message while preserving the tests. Keep its task text, starting commit, agent version, model, and configuration together so later runs are comparable.
+Start with the [quickstart](https://maida.ai/docs/getting-started/) and its offline `maida demo --regression`. Then use a task in your own repository. Allow 10–15 minutes for capture setup and the first useful report below; this is a setup target, not a measured completion time. You can stop after that report and return to baseline review later.
 
-## Checkpoint 1: capture your normal work
+## Checkpoint 1: check your normal work
 
-The supported hook integration below records tool activity and lifecycle events. It does not provide complete model usage, token, or topology coverage. An isolated Maida tool install is enough for this capture path; the project can use any language.
+Choose a short, read-only task: **“Find the command this repository uses to run its tests. Cite the configuration file that defines it. Do not edit files or install dependencies.”** Check the answer against that file. Use a repository you already understand so the task itself is small.
+
+The supported hook integration records tool activity and lifecycle events. It does not provide complete model usage, token, or topology coverage. Maida stores this evidence locally; your coding agent still uses its usual model provider. An isolated CLI install is enough; the project can use any language. Use Python 3.12 or newer.
 
 ### Integration: Claude Code command hooks
 
-Install the released CLI and get the tutorial helper once:
+Install the CLI and get the capture helper once:
 
 ```bash
 uv tool install "maida-ai==0.5.3"
 git clone https://github.com/maida-ai/maida-tutorials.git
-cd maida-tutorials
-export MAIDA_TUTORIALS="$PWD"
+export MAIDA_TUTORIALS="$PWD/maida-tutorials"
 ```
 
-Run the helper with the path to your project. Preview is read-only; `--apply` adds passive observers while preserving existing settings and hooks. These hooks never approve or deny an agent action.
+Preview the capture setup for your repository, then apply the reviewed change. The helper preserves existing settings and hooks and adds passive observers; these hooks never approve or deny an agent action.
 
 ```bash
-uv run --no-project python onboarding/install_capture.py --project /path/to/your/repo
-uv run --no-project python onboarding/install_capture.py --project /path/to/your/repo --apply
+uv run --no-project python "$MAIDA_TUTORIALS/onboarding/install_capture.py" --project /path/to/your/repo
+uv run --no-project python "$MAIDA_TUTORIALS/onboarding/install_capture.py" --project /path/to/your/repo --apply
 ```
 
-In your project, review `git diff -- .claude/settings.json`. Ensure `maida --version` works in the terminal that launches the agent. Set one local evidence directory before starting a **new** session, complete the selected task, and exit normally:
+In your repository, open `.claude/settings.json` and compare it with the helper preview. `git diff -- .claude/settings.json` shows changes only when that file is already tracked; an empty diff is not evidence that nothing changed. Keep ignored or untracked settings local unless you deliberately choose to version them. Ensure `maida --version` works in the terminal that launches the agent. Start a **new** session with isolated evidence, complete the short task, then exit normally:
 
 ```bash
 cd /path/to/your/repo
@@ -32,62 +33,67 @@ export MAIDA_DATA_DIR="$PWD/.maida/known-good"
 claude
 ```
 
-The session-end hook imports the completed run automatically. The checkpoint is `maida list` showing a completed run. Add `.maida/known-good/` and `.maida/candidate/` to your project's `.gitignore`; these contain local evidence, not source configuration. If no run appears, verify the hook command is on PATH and the session ended. The [capture guide](https://maida.ai/docs/claude-code/) covers exporter capture and abrupt-exit recovery.
+The session-end hook imports the completed run automatically. Check it immediately:
+
+```bash
+maida list
+maida assert --expect-status ok --no-loops --no-guardrails
+```
+
+Expect your completed task and a report checking completion, recorded loop warnings, and recorded guardrail events. No baseline or policy file is needed for this first report. These flags explicitly select those requirements; they do not test answer correctness, forbid edits, or establish anything about unrecorded behavior. If this repo already has a Maida policy, inspect it first: `assert` also loads `.maida/policy.yaml` when present.
+
+If no completed run appears, confirm the hook command is on PATH and the session ended before adding anything else. If a check fails, use `maida view` to inspect the observation, fix the cause, and retry the short task. The [capture guide](https://maida.ai/docs/claude-code/) covers abrupt-exit recovery and richer exporter capture.
+
+**This is the first useful checkpoint.** You have checked your own task, have a local report, and know where its evidence lives. Add `.maida/known-good/` and `.maida/candidate/` to `.gitignore`; they contain local evidence. Continue when you want a contract for the next agent change.
 
 ## Checkpoint 2: review a small contract
 
-Generate a draft from that observed task:
+Keep the task text, starting commit, agent/model versions, and configuration with your review. Check the installed command contract:
 
 ```bash
-maida extract --window .maida/known-good/runs --out .maida/draft
+maida init --help
 ```
 
-The command prints the workflow directory containing `baseline.json` and `policy.yaml`. Open that directory and review the evidence. The draft is inactive, may contain tight numerical bounds from one observation, and must not be treated as an accepted specification. For a first gate, keep only a few checks you understand: a tool required by this particular task, successful completion, and no observed guardrail events are candidates only when the capture actually records them. A hook capture's lack of model usage is no evidence that a model made zero calls.
+If help includes `--from-run`, use the reviewed workflow below (Maida 0.6 and newer). If you are using Maida 0.5.x, continue with the [0.5 compatibility walkthrough](coding-agent-0.5.md#checkpoint-2-review-a-small-contract); it accounts for that release's different comparison interface.
 
-For this small tutorial contract, capture the known-good run as the baseline:
+Draft from the known-good task, with `MAIDA_DATA_DIR` still selecting its evidence:
 
 ```bash
-maida baseline --out .maida/baselines/coding-task.json
+maida init --from-run latest
 ```
 
-After reviewing the observations, create `.maida/policy.yaml` with the candidates you explicitly accept. This example is appropriate only if the task actually used `Read`, reviewing that content is required, and all three observations and their coverage fit your task. Replace `Read` with the observed required tool or omit that candidate; never invent a requirement to fill the template:
+Check the printed workflow and trace ID. Open `.maida/starter/policy.yaml`. It proposes at most three observed invariants: successful completion, no recorded loops, and no recorded guardrail events. Delete anything your task does not require; keep at least one meaningful requirement. The draft is inactive. One observed run is not a guarantee, and absent capture is not proof that an action never occurred.
 
-```yaml
-# Reviewed for the selected coding task; observed runs are not a guarantee.
-version: 2
-metrics:
-  required_tools: {kind: invariant, all_of: [Read]}
-  no_guardrails: {kind: invariant, require: true}
-  stop_condition_reached: {kind: invariant, require: true}
+Only after reviewing the candidates, accept them with your reason:
+
+```bash
+maida init --reviewed --reason "This test-command lookup must complete without recorded loops or guardrail stops"
 ```
 
-Record your reason, the task and starting commit, agent/model/configuration versions, and the observation limits alongside the baseline. Keep the invariant policy small; do not add a list of forbidden tools your repository does not use. The checkpoint is a reviewed baseline and policy in your local diff, with no trace payload committed.
+Expect `.maida/policy.yaml`, `.maida/baselines/agent.json`, and a review record with the accepted hashes. No hand-written policy template or run-ID extraction is needed. Preserve those files for the next check.
 
 ## Checkpoint 3: check the next change
 
-Use the same task from a fresh copy of the same starting state, changing only the configuration or implementation under test. Keep the baseline evidence separate. In the terminal for that new session:
+Repeat the same task from the same starting repository state in a fresh session, changing only the agent configuration or implementation you intend to compare. Keep candidate evidence separate:
 
 ```bash
 export MAIDA_DATA_DIR="$PWD/.maida/candidate"
 claude
 ```
 
-After the session ends, explicitly confirm it performed the same task from the same starting state, then evaluate the new evidence:
+After normal session completion, inspect the selected run and evaluate it:
 
 ```bash
-uv run --no-project --with "maida-ai==0.5.3" python "$MAIDA_TUTORIALS/onboarding/gate_capture.py" --window .maida/candidate/runs --baseline .maida/baselines/coding-task.json --policy .maida/policy.yaml --same-task
+maida list
+maida assert --baseline .maida/baselines/agent.json --policy .maida/policy.yaml
 ```
 
-The release names each capture by session, so this helper explicitly maps one reviewed task across those identities. It delegates to the released three-verdict evaluator, preserves the original files, and reports the source identities and baseline hash. It refuses mixed-session windows; use a fresh evidence directory for each comparison. Do not substitute the release's legacy `maida assert`: it omits v2 invariant metrics.
+Confirm that the new observation belongs to the same task before comparing. Read the verdict and individual checks. PASS applies to the selected evidence and policy; FAIL identifies a violation; INCONCLUSIVE requires more suitable evidence or an explicitly reviewed requirement. Exit zero alone is not approval.
 
-Read the verdict itself: `PASS` means the configured checks passed on the observed candidate window; `FAIL` names a broken contract; `INCONCLUSIVE` means evidence was insufficient. Exit zero alone does not mean approval. The checkpoint is a readable report with the next action you can take.
+Before relying on a requirement, reproduce a safe, relevant violation and repair it without changing the baseline. Do not induce dangerous actions in your repository. The offline [shipping refactor lab](../demos/pr-gate/) rehearses PASS → FAIL → repair when you do not have a safe real regression to repeat. Its stronger policy detects test rewriting; the small starter above does not claim that coverage. Use `maida view` to investigate a failed observation.
 
-Practice failure and repair in the [shipping refactor lab](../demos/pr-gate/) if you do not yet have a safe real regression to reproduce. Its stronger reviewed policy catches test rewriting; the three-check starter above does not claim to detect that behavior. Fix the cause and recapture a fresh candidate. For an intentional change, review the evidence and use the [acceptance workflow](https://maida.ai/docs/regression-testing/); do not replace the baseline just to get a green check.
+## Checkpoint 4: add CI when the local check is useful
 
-## Checkpoint 4: add CI after local evidence works
+Use the [gate skill](https://github.com/maida-ai/skills/tree/main/product/maida-add-regression-gate) to make the same task repeatable with pinned versions and explicit budgets. Coding-agent CI needs a repeatable scenario, not a saved session. The [init reference](https://maida.ai/docs/cli/init/) also shows generating a workflow for an existing traced Python entrypoint.
 
-Use the [gate skill](https://github.com/maida-ai/skills/tree/main/product/maida-add-regression-gate) to make the same task repeatable in CI with pinned versions and explicit budgets. The released `maida init --github` emits a scaffold that still needs a real capture/agent command and reviewed baseline. Newer observed-run `init` options are development work and are not part of this released walkthrough.
-
-Before treating a GitHub check as a merge gate, test it on an actual PR in your repository, including a changed PR head after deliberate acceptance. Configure required checks and workflow-file review protection. A local report or the tutorials' CI cannot establish your repository's merge boundary.
-
-To investigate a failed check, run `maida view` against the candidate evidence, compare the changed behavior, and rerun after the fix. You can stop at any checkpoint and continue from the files you already reviewed.
+Before treating the GitHub check as a merge gate, test it on an actual PR, including a fresh result on the new head after intentional acceptance. Configure required checks and workflow-file review protection. Acceptance must preserve the reviewed reason and evidence; do not replace a baseline just to get green.
