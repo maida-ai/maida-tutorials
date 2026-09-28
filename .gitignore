@@ -220,3 +220,4 @@ __marimo__/
 !demos/pr-gate/.maida/baselines/coding-agent.json
 !demos/langfuse-gate/observations.json
 .maida/onboarding-runs/
+!demos/langfuse_import/observations.json
