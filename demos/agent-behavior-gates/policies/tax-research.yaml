@@ -1,0 +1,19 @@
+version: 2
+trials: 3
+fail_fast: true
+metrics:
+  stop_condition_reached: {kind: invariant, require: true}
+  no_loops: {kind: invariant, require: true}
+  no_guardrails: {kind: invariant, require: true}
+  required_tools:
+    kind: invariant
+    all_of:
+      - read_tax_research_skill
+      - open_primary_source
+      - base_conclusion_on_primary_source
+      - answer_tax_question
+  tool_call_count:
+    kind: measured
+    direction: upper
+    aggregate: max
+    limit: 6

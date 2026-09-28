@@ -1,0 +1,67 @@
+name: Agent Behavior gates
+
+on:
+  pull_request:
+    paths:
+      - "demos/agent-behavior-gates/**"
+      - ".github/workflows/agent-behavior-gates.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Harness and regression tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v8.2.0
+        with:
+          version: "0.11.14"
+          python-version: "3.13"
+          enable-cache: true
+          cache-dependency-glob: "demos/agent-behavior-gates/uv.lock"
+
+      - name: Install locked environment
+        run: uv sync --directory demos/agent-behavior-gates --locked
+
+      - name: Prove compliant paths pass and regressions are blocked
+        run: uv run --directory demos/agent-behavior-gates --frozen pytest -q
+
+      - name: Check formatting and lint
+        run: |
+          uv run --directory demos/agent-behavior-gates --frozen ruff check .
+          uv run --directory demos/agent-behavior-gates --frozen ruff format --check .
+
+  behavior-gates:
+    name: Maida policy matrix
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v8.2.0
+        with:
+          version: "0.11.14"
+          python-version: "3.13"
+          enable-cache: true
+          cache-dependency-glob: "demos/agent-behavior-gates/uv.lock"
+
+      - name: Install locked environment
+        run: uv sync --directory demos/agent-behavior-gates --locked
+
+      - name: Run the three-trial Maida policy matrix
+        run: uv run --directory demos/agent-behavior-gates --frozen python run_ci_gates.py
+
+      - name: Upload machine-readable gate evidence
+        if: always()
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: agent-behavior-gate-reports
+          path: demos/agent-behavior-gates/.artifacts/ci/
+          if-no-files-found: error

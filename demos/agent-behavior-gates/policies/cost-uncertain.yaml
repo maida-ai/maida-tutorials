@@ -1,0 +1,19 @@
+version: 2
+trials: 3
+fail_fast: true
+metrics:
+  stop_condition_reached: {kind: invariant, require: true}
+  no_loops: {kind: invariant, require: true}
+  no_guardrails: {kind: invariant, require: true}
+  required_tools:
+    kind: invariant
+    all_of:
+      - inspect_pricing_and_quota
+      - state_cost_uncertainty
+      - offer_lower_cost_alternative
+      - request_confirmation
+  tool_call_count:
+    kind: measured
+    direction: upper
+    aggregate: max
+    limit: 4

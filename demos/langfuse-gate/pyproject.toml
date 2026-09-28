@@ -1,0 +1,30 @@
+[project]
+name = "langfuse-gate-demo"
+version = "0.1.0"
+description = "A deterministic demo of Maida gating traces imported from Langfuse"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "maida-ai",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2,<10",
+    "ruff>=0.15.1,<0.16",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+maida-ai = { git = "https://github.com/maida-ai/maida.git", rev = "873cd1de5f0204e324dc8d35099701fea63ecba8" }
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88

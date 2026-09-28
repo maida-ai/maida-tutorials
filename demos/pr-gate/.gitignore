@@ -1,0 +1,10 @@
+.venv/
+.maida-data/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+*.py[cod]
+
+# AGENTS.md is globally ignored on some developer machines, but it is the
+# behavior under test in this demo and must be committed.
+!AGENTS.md
