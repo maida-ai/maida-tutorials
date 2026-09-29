@@ -214,3 +214,10 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Consolidated source fixtures and migration provenance
+!migration-inventory.json
+!demos/pr-gate/.maida/baselines/coding-agent.json
+!demos/langfuse-gate/observations.json
+.maida/onboarding-runs/
+!demos/langfuse_import/observations.json

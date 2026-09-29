@@ -1,0 +1,32 @@
+name: Langfuse Behavior Gate
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  imported-trace-check:
+    runs-on: ubuntu-latest
+    env:
+      LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
+      LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
+      LANGFUSE_BASE_URL: ${{ vars.LANGFUSE_BASE_URL }}
+      # Set this trusted repository variable to one completed candidate trace.
+      LANGFUSE_TRACE_ID: ${{ vars.LANGFUSE_TRACE_ID }}
+    steps:
+      - uses: actions/checkout@v7
+
+      # Pin both repositories in production and update them deliberately.
+      - uses: maida-ai/maida-assert@24cbff5d839da60f876ba07c0eca13464b7dab2d
+        with:
+          trace-command: maida import langfuse --trace-id "$LANGFUSE_TRACE_ID"
+          baseline: .maida/baselines/support-agent.json
+          policy: .maida/policy.yaml
+          maida-version: '@873cd1de5f0204e324dc8d35099701fea63ecba8'
+          python-version: '3.13'
+          post-comment: 'true'

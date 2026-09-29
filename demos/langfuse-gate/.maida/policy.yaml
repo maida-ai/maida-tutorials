@@ -1,0 +1,35 @@
+version: 2
+trials: 1
+fail_fast: true
+metrics:
+  stop_condition_reached:
+    kind: invariant
+    require: true
+
+  forbidden_tools:
+    kind: invariant
+    none_of: [escalate_case]
+
+  no_loops:
+    kind: invariant
+    require: true
+
+  step_count:
+    kind: measured
+    direction: upper
+    tolerance: {relative: 0.5}
+
+  tool_call_count:
+    kind: measured
+    direction: upper
+    tolerance: {relative: 0.5}
+
+  cost_tokens:
+    kind: measured
+    direction: upper
+    tolerance: {relative: 0.0}
+
+  latency_ms:
+    kind: measured
+    direction: upper
+    tolerance: {relative: 0.5}

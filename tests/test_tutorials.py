@@ -113,13 +113,13 @@ class TutorialConformanceTests(unittest.TestCase):
             self.assertIn(expected, source)
 
     def test_readme_lists_crewai_install_and_notebook(self):
-        readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+        readme = (REPO_ROOT / "guides/notebooks.md").read_text(encoding="utf-8")
 
         self.assertIn("CrewAI/Mock CrewAI Agent.ipynb", readme)
         self.assertIn('uv pip install "maida-ai[crewai]==0.5.3"', readme)
 
     def test_readme_summarizes_crewai_conformance_and_failure_paths(self):
-        readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+        readme = (REPO_ROOT / "guides/notebooks.md").read_text(encoding="utf-8")
         crewai_section = readme.split(
             "### 4. Debug a CrewAI Workflow (`CrewAI/`)", 1
         )[1].split("## Running the notebooks", 1)[0]
@@ -133,7 +133,7 @@ class TutorialConformanceTests(unittest.TestCase):
             self.assertIn(expected, crewai_section)
 
     def test_readme_summarizes_openai_conformance_and_failure_paths(self):
-        readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+        readme = (REPO_ROOT / "guides/notebooks.md").read_text(encoding="utf-8")
         openai_section = readme.split(
             "### 3. Debug an OpenAI Agents Workflow (`OpenAI/`)", 1
         )[1].split("### 4. Debug a CrewAI Workflow (`CrewAI/`)", 1)[0]

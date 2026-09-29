@@ -1,0 +1,56 @@
+{
+  "schema_version": "0.2",
+  "created_at": "2026-07-28T01:23:44.655Z",
+  "source_run_id": "2a7cca7072d0fb0dd266608d0b751a8b",
+  "source_run_name": "storefront-coding-agent",
+  "summary": {
+    "status": "ok",
+    "total_events": 7,
+    "llm_calls": 0,
+    "tool_calls": 7,
+    "errors": 0,
+    "loop_warnings": 0,
+    "duration_ms": 174,
+    "total_tokens": 0
+  },
+  "tool_path": [
+    "inspect_shipping_rule",
+    "read_coding_task",
+    "read_project_instructions",
+    "refactor_shipping_rule",
+    "repair_shipping_rule",
+    "run_regression_suite"
+  ],
+  "tool_call_sequence": [
+    "read_project_instructions",
+    "read_coding_task",
+    "inspect_shipping_rule",
+    "refactor_shipping_rule",
+    "run_regression_suite",
+    "repair_shipping_rule",
+    "run_regression_suite"
+  ],
+  "_tool_call_sequence_exact": true,
+  "tool_call_counts": {
+    "read_project_instructions": 1,
+    "read_coding_task": 1,
+    "inspect_shipping_rule": 1,
+    "refactor_shipping_rule": 1,
+    "run_regression_suite": 2,
+    "repair_shipping_rule": 1
+  },
+  "llm_models_used": [],
+  "event_type_sequence": [
+    "RUN_START",
+    "TOOL_CALL",
+    "TOOL_CALL",
+    "TOOL_CALL",
+    "TOOL_CALL",
+    "TOOL_CALL",
+    "TOOL_CALL",
+    "TOOL_CALL",
+    "RUN_END"
+  ],
+  "guardrail_events": [],
+  "final_status": "ok"
+}

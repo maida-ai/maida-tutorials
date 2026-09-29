@@ -1,0 +1,786 @@
+[
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": ".github/workflows/agent-behavior-gates.yml",
+    "source_sha256": "c28ed3fc344a57ee2140bd558ac8cebeb8ec1142b40d56e0f1fd0fd6e0b12237",
+    "destination": ".github/workflows/agent-behavior-gates.yml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": ".github/workflows/langfuse-gate.yml",
+    "source_sha256": "8fe81014b1480cdae9d5d04be7ded5fdfb9e7eb9eb740c402d2ba584b4f07609",
+    "destination": ".github/workflows/langfuse-gate.yml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": ".github/workflows/pr-gate.yml",
+    "source_sha256": "88a5a25c986ebd4a4e75e346c9fd3f7040efd70d49feac2975e2eba75271553a",
+    "destination": ".github/workflows/pr-gate.yml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/.agents/behaviors/cost-sensitive-actions/BEHAVIOR.md",
+    "source_sha256": "156bd772b8e3769dbc68ff94cfe93f0d1efb0511421f7696554759debb709452",
+    "destination": "demos/agent-behavior-gates/.agents/behaviors/cost-sensitive-actions/BEHAVIOR.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/.agents/behaviors/financial-work-verification/BEHAVIOR.md",
+    "source_sha256": "cbd91902ba46c96817ffd58e076105c3fecad0f2c7712ba7f7ae0f189f5be772",
+    "destination": "demos/agent-behavior-gates/.agents/behaviors/financial-work-verification/BEHAVIOR.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/.agents/behaviors/primary-source-tax-research/BEHAVIOR.md",
+    "source_sha256": "e69afb5789f58b307a221cbba69ce4f1653a85f125759a192c2488fbc68ed209",
+    "destination": "demos/agent-behavior-gates/.agents/behaviors/primary-source-tax-research/BEHAVIOR.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/.agents/behaviors/support-ticket-triage/BEHAVIOR.md",
+    "source_sha256": "c4f6a0aa830a85a5a5cd7bf56a069809129b4364a3d02548f9875853192c846a",
+    "destination": "demos/agent-behavior-gates/.agents/behaviors/support-ticket-triage/BEHAVIOR.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/.agents/skills/tax-research/SKILL.md",
+    "source_sha256": "26f9d026d96a7534c138cf6f2ea6f34e3063a975247b7d2350f2ca12a743ccde",
+    "destination": "demos/agent-behavior-gates/.agents/skills/tax-research/SKILL.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/.gitignore",
+    "source_sha256": "b8aaa801abb172be87d21f5d951c801dfeb3825aac52fe7c7752a9dcf34ffb5b",
+    "destination": "demos/agent-behavior-gates/.gitignore"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/LICENSE.agentbehavior",
+    "source_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "destination": "demos/agent-behavior-gates/LICENSE.agentbehavior"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/README.md",
+    "source_sha256": "1fa4823f333c3bea3b6d330549bc5adfb2f47c33b11ea176c7d60b2c22534035",
+    "destination": "demos/agent-behavior-gates/README.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/THIRD_PARTY_NOTICES.md",
+    "source_sha256": "d3fd69ac8edc58b307f6401768789d058d2a1f351d5cb29a5c56d1e2162acb13",
+    "destination": "demos/agent-behavior-gates/THIRD_PARTY_NOTICES.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/behavior_gates/__init__.py",
+    "source_sha256": "fd8b743dc9ffa7cb76410f7ad4a534bb3985f4ecb1db4b828c6e412ddfc09104",
+    "destination": "demos/agent-behavior-gates/behavior_gates/__init__.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/behavior_gates/common.py",
+    "source_sha256": "c4366fb91bb367492cb76409e49ef2493b3b074e9368ca77b0465ba9464d62ab",
+    "destination": "demos/agent-behavior-gates/behavior_gates/common.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/behavior_gates/cost.py",
+    "source_sha256": "aeaf38ebf2f12c844a69624f0ad2a23fec4cd5194b1f1d7ac457e8f26c27100f",
+    "destination": "demos/agent-behavior-gates/behavior_gates/cost.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/behavior_gates/financial.py",
+    "source_sha256": "32839d345787732e4e9fa775f72c72d77f9c4817e5907fc1fe745624fd4a5750",
+    "destination": "demos/agent-behavior-gates/behavior_gates/financial.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/behavior_gates/gates.py",
+    "source_sha256": "f38a0c57dd2a958b331128208cea24f70796ca8e3d5a44c3b03e39984b93b06f",
+    "destination": "demos/agent-behavior-gates/behavior_gates/gates.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/behavior_gates/matrix.py",
+    "source_sha256": "ba901b8bc65e880b3e37cd2c9b3e23e00992a555dc1451a47198fd36b9d8408a",
+    "destination": "demos/agent-behavior-gates/behavior_gates/matrix.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/behavior_gates/support.py",
+    "source_sha256": "86d1fcca9c6c15825ff92678f07861fe4eb662fd39277b200d1cea1232d5bfc4",
+    "destination": "demos/agent-behavior-gates/behavior_gates/support.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/behavior_gates/tax.py",
+    "source_sha256": "e48fd9c27f9f421389a071ec1f3cc78849fdf6c39af674903a4c6965077e1b78",
+    "destination": "demos/agent-behavior-gates/behavior_gates/tax.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/cost_agent.py",
+    "source_sha256": "0c9833b897cd98c506ba143840ef1eda92b3dfe024b37f364834259facdebda7",
+    "destination": "demos/agent-behavior-gates/cost_agent.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/demo.py",
+    "source_sha256": "bd4a904a8d082aaba11683e8b4b5702a3ad3ef759fa342e5ef1f4118e6763ea7",
+    "destination": "demos/agent-behavior-gates/demo.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/financial_agent.py",
+    "source_sha256": "ffec7273c579d84fa18a95db644df513a3abeb2bfe1ceff11cba42d864de4319",
+    "destination": "demos/agent-behavior-gates/financial_agent.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/policies/cost-known.yaml",
+    "source_sha256": "9736381f6c14e6e5418d6485ef83d94f86488d8d41dd10d9fc18d5bad727af09",
+    "destination": "demos/agent-behavior-gates/policies/cost-known.yaml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/policies/cost-uncertain.yaml",
+    "source_sha256": "eef7a1949319af425c905269647a143674f24067a3f28454606bf28959ab45aa",
+    "destination": "demos/agent-behavior-gates/policies/cost-uncertain.yaml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/policies/financial-discrepancy.yaml",
+    "source_sha256": "3520a971b42f93a14ee7b928cdb111cc7b78fb89f21852e06c53a8686b3deae3",
+    "destination": "demos/agent-behavior-gates/policies/financial-discrepancy.yaml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/policies/financial-incomplete.yaml",
+    "source_sha256": "56a97901b14e3c72d8f8938afc58ebc640176559e3642a920457bb1a6df3498c",
+    "destination": "demos/agent-behavior-gates/policies/financial-incomplete.yaml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/policies/financial-verified.yaml",
+    "source_sha256": "02bdeeb45eee2c174b4d34ca661dfc86f79ef5eeb235c9d785bd782de7f39daa",
+    "destination": "demos/agent-behavior-gates/policies/financial-verified.yaml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/policies/support-ambiguous.yaml",
+    "source_sha256": "031d46a2551e0d633c929ba6fd413be7b9c4bd0bd42c58009b6e35627feea371",
+    "destination": "demos/agent-behavior-gates/policies/support-ambiguous.yaml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/policies/support-api.yaml",
+    "source_sha256": "1e94f15d966a477b64ed4e61478c3f27b4e68bd3725a3061c7f5dd3c88acabbd",
+    "destination": "demos/agent-behavior-gates/policies/support-api.yaml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/policies/support-security.yaml",
+    "source_sha256": "fc21ee4616680769a9f56d9a4b397da46a0dd438a0e3c229efa8a37cb0ab2143",
+    "destination": "demos/agent-behavior-gates/policies/support-security.yaml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/policies/tax-research.yaml",
+    "source_sha256": "312abbd281ca194daf2254f62c240d152b269eefa0cf661f1861f462ff0bcd59",
+    "destination": "demos/agent-behavior-gates/policies/tax-research.yaml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/pyproject.toml",
+    "source_sha256": "b6e7b79c577b74d080b97c3ab53a46a80f627e8491286806de32b08e066d8105",
+    "destination": "demos/agent-behavior-gates/pyproject.toml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/run_ci_gates.py",
+    "source_sha256": "8b8e01cd26f269f372c772219d9fa7d3843cd5077344dedb30c4ebabf66cfdc4",
+    "destination": "demos/agent-behavior-gates/run_ci_gates.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/support_agent.py",
+    "source_sha256": "ebc9cea97334518c2d4ad40349a660d0ee0c99e9828c187ca75da3ab5f072d50",
+    "destination": "demos/agent-behavior-gates/support_agent.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/tax_agent.py",
+    "source_sha256": "a18192d2f66b860af6366f47c5333ec945515fcd3ce9673a67d3651e6f2de2b4",
+    "destination": "demos/agent-behavior-gates/tax_agent.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/tests/test_harnesses.py",
+    "source_sha256": "31cb63824e05b1a393b52f4c8fd3fcd632db2a32c7e684f294bc329fae66ca53",
+    "destination": "demos/agent-behavior-gates/tests/test_harnesses.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/tests/test_live_gates.py",
+    "source_sha256": "e161c04229e10c52f588e4f79cd97b508af0cf290f190a533004791644209aeb",
+    "destination": "demos/agent-behavior-gates/tests/test_live_gates.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/tests/test_policy_matrix.py",
+    "source_sha256": "e435d200fbc83647cefca4c9220bcdd43627b294dcacc55c3777a12c3a402fc1",
+    "destination": "demos/agent-behavior-gates/tests/test_policy_matrix.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "agent-behavior-gates/uv.lock",
+    "source_sha256": "cb01f0bff8b038e32d668eea256b92b4b4742e6f4223afd9794a0e85d2621c77",
+    "destination": "demos/agent-behavior-gates/uv.lock"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/.gitignore",
+    "source_sha256": "5a145da72d8b5f4d0f0c09c61f58bdb98d60c54805ba409066e163ac85499857",
+    "destination": "demos/injection-arena/.gitignore"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/README.md",
+    "source_sha256": "5f2e79d50a756ee60e3089a4cb6541a03e550d4fdc84a7046a83f9ded670c7fa",
+    "destination": "demos/injection-arena/README.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/app/__init__.py",
+    "source_sha256": "101647d4bbb123a8b65cef62cb40b9d3d20edd82917f8016ce90ac812127618e",
+    "destination": "demos/injection-arena/app/__init__.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/app/agents_setup.py",
+    "source_sha256": "8c06e65410523677046d455fad5fb5d476692796c9afc14fc4ae169237621093",
+    "destination": "demos/injection-arena/app/agents_setup.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/app/arena.py",
+    "source_sha256": "6a9d090c085ab7728bf07526e9b20dddaec5c19338896ff500ebf23cd4cbab45",
+    "destination": "demos/injection-arena/app/arena.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/app/canned.py",
+    "source_sha256": "5f658db20d17a79b82311964e2341abfabe2e388d5ef858c116ef7851cd2a5cc",
+    "destination": "demos/injection-arena/app/canned.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/app/config.py",
+    "source_sha256": "e329fe1c62ed9625b127d3174276d181e653a81c4656fe866f2723291ae9ad80",
+    "destination": "demos/injection-arena/app/config.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/app/context.py",
+    "source_sha256": "bf37c37bf0e6f24b20be89909e254c3b34e13750b78a17498b3e5cb942c6eb1b",
+    "destination": "demos/injection-arena/app/context.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/app/gate.py",
+    "source_sha256": "0dc876eff99408059734d63147724320d4f94e3595db49b855eb3738701c1635",
+    "destination": "demos/injection-arena/app/gate.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/app/mock_tools.py",
+    "source_sha256": "26b835175872f196af49efb881bcbe8fae112bfa731f1f3bbb0015f4bcdffd68",
+    "destination": "demos/injection-arena/app/mock_tools.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/app/scenarios.py",
+    "source_sha256": "2aa6e0b58fff44ed55ab642e96b76317591125bb5e8bcd1c263132c62d16c577",
+    "destination": "demos/injection-arena/app/scenarios.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/app/server.py",
+    "source_sha256": "a1cb1aacfe7e2b79d55c9427dda8e49fa8030cc299221a839d43b7ea0ee79cce",
+    "destination": "demos/injection-arena/app/server.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/pyproject.toml",
+    "source_sha256": "466bc235a148bd0bf8ae2f10740c50ceedf947d142c13b0a0f5649b46482aa8a",
+    "destination": "demos/injection-arena/pyproject.toml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/static/app.js",
+    "source_sha256": "9e19d42bd8b5023805a5a5bad3aa4a3d777b6d37ec2b724f2559e27bb4df649f",
+    "destination": "demos/injection-arena/static/app.js"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/static/index.html",
+    "source_sha256": "b4721bdce7a4b51ce9dbe0a15f9272cf7483ea667a590c5b6c9e62b580d0fea4",
+    "destination": "demos/injection-arena/static/index.html"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/static/styles.css",
+    "source_sha256": "e08a83a32b61d12e9bafd7388b955ee9c4007974aef6516ef91d8da7aed5deba",
+    "destination": "demos/injection-arena/static/styles.css"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "injection-arena/uv.lock",
+    "source_sha256": "6001238079362beb5b2a8bbe1ecb271529dd83f82b3d188ddaded67045ea9045",
+    "destination": "demos/injection-arena/uv.lock"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "langfuse-gate/.gitignore",
+    "source_sha256": "3bbe50b3ebbd177ca87daf4b8c4eca568e543173fd263b3c74230603eeabefe2",
+    "destination": "demos/langfuse-gate/.gitignore"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "langfuse-gate/.maida/policy.yaml",
+    "source_sha256": "4e1d0acf856a44ee428ec4e86971a2c94e353b637a2eb3cde6b78cbfb897031b",
+    "destination": "demos/langfuse-gate/.maida/policy.yaml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "langfuse-gate/README.md",
+    "source_sha256": "ab4f4944413997c05cb8bf0e740540d66146843670ee724f38fa7791579cee87",
+    "destination": "demos/langfuse-gate/README.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "langfuse-gate/RECORDING.md",
+    "source_sha256": "2b8228a7ffdfe522126b4b51828a0938ed046c85bc0d3afb2cd31b02a3fea177",
+    "destination": "demos/langfuse-gate/RECORDING.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "langfuse-gate/demo.py",
+    "source_sha256": "287c05cd0bfcf999392bbafbd81491e070aae859d657161c00ae4e383aa5c835",
+    "destination": "demos/langfuse-gate/demo.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "langfuse-gate/examples/github-actions.yml",
+    "source_sha256": "62f63142e3c6eb349c819fa6d225a272de51c404e0c232ae015922f5a0946c09",
+    "destination": "demos/langfuse-gate/examples/github-actions.yml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "langfuse-gate/observations.json",
+    "source_sha256": "77010b231f9ab65aa090facdd8b574eb42e21e1a4d49c86fe18cf0528725aa58",
+    "destination": "demos/langfuse-gate/observations.json"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "langfuse-gate/pyproject.toml",
+    "source_sha256": "2274f2e63c42fef07d88346dc9a29755a618badd6edf830d2aedd546326cae5a",
+    "destination": "demos/langfuse-gate/pyproject.toml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "langfuse-gate/tests/test_demo.py",
+    "source_sha256": "04781aee48835228b370eaf73dfac918b4e6b56a29d41fbad54b487cdd5fb85b",
+    "destination": "demos/langfuse-gate/tests/test_demo.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "langfuse-gate/tests/test_docs.py",
+    "source_sha256": "100766423eaea067698f1457befecdcb69f01e4197f2c7f814fea858ca1e43ee",
+    "destination": "demos/langfuse-gate/tests/test_docs.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "langfuse-gate/uv.lock",
+    "source_sha256": "ed4370ba9abdf5a9261bbc91de0fb40e5f6db17f43ec991d976daf05520e547b",
+    "destination": "demos/langfuse-gate/uv.lock"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/.gitignore",
+    "source_sha256": "01f1667767252f186fb974f7b591048868159a1e565ed106824402c5a5dd6114",
+    "destination": "demos/pr-gate/.gitignore"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/.maida/baselines/coding-agent.json",
+    "source_sha256": "d54fb1c25972d7bc5dfb4680d2cf3a9d1f70a90cb284670ef1831ec5e2a736bb",
+    "destination": "demos/pr-gate/.maida/baselines/coding-agent.json"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/.maida/policy.yaml",
+    "source_sha256": "1470fa39e0193d53336cc6269275b5f959964c03e865f649440bde3a3c8ba596",
+    "destination": "demos/pr-gate/.maida/policy.yaml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/AGENTS.md",
+    "source_sha256": "d4f7e649c3149fb60aef8386c7b53593a7aa16729c2f43206f30897130ef3682",
+    "destination": "demos/pr-gate/AGENTS.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/README.md",
+    "source_sha256": "63021599c2ab7d42b872e1f3d8d792b0d730e04c66b39243edf109adc8bc196b",
+    "destination": "demos/pr-gate/README.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/coding_agent.py",
+    "source_sha256": "4de028de35dffc1413e10029274b94b96afda50e9e4018cfbb5ee16ffdc6fe26",
+    "destination": "demos/pr-gate/coding_agent.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/demo.py",
+    "source_sha256": "9a04d73d740dbe8e423d6bb7195bb44046fb73acbac2328afb1ac8e12d963fab",
+    "destination": "demos/pr-gate/demo.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/demo/AGENTS.safe.md",
+    "source_sha256": "9a82e6f98989d4ae145bc62afecda33d37eb198670f092e8f96659a07e068bdb",
+    "destination": "demos/pr-gate/demo/AGENTS.safe.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/demo/agents-pr.patch",
+    "source_sha256": "f0837704b0fe7545dc668764fa4bf4cdcf2a731a1d9dd72b915b676c48c29f2a",
+    "destination": "demos/pr-gate/demo/agents-pr.patch"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/pyproject.toml",
+    "source_sha256": "a063b206184451431aa4c35d2a3002de451d573d1f43078170f14eff099fc8c3",
+    "destination": "demos/pr-gate/pyproject.toml"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/recording_demo.py",
+    "source_sha256": "3918e264f08a5f1fa299fb1c99c2703149dfe6d9383776e767bc6dccb37ceeca",
+    "destination": "demos/pr-gate/recording_demo.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/storefront/__init__.py",
+    "source_sha256": "32ed244ebe1182bcc6e76d1b1014bcaed19431a93210df19d32e70fc05fc2177",
+    "destination": "demos/pr-gate/storefront/__init__.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/storefront/shipping.py",
+    "source_sha256": "67159bc3850df49a785b69072edd67fb7c913bd3c4eca266a5419406614fdfd5",
+    "destination": "demos/pr-gate/storefront/shipping.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/task.md",
+    "source_sha256": "270cfc355d913c2526526aeb4ae7fb91e39cac48010ea4026e1c6ecd4f941108",
+    "destination": "demos/pr-gate/task.md"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/tests/test_checked_in_policy_contract.py",
+    "source_sha256": "34191699e94936210a3d10f8f6d5cc383a46dcb2125b18e03b739571140a78fa",
+    "destination": "demos/pr-gate/tests/test_checked_in_policy_contract.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/tests/test_coding_agent.py",
+    "source_sha256": "a4dcaecbd718d351e9d3b76290e96ec3387ce8a9300f533b94ca64899424a40a",
+    "destination": "demos/pr-gate/tests/test_coding_agent.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/tests/test_demo.py",
+    "source_sha256": "305dbb6d123e2cb5aab5ce2b6316002ff9a78e2727266e7a2aa1f72aa153ef84",
+    "destination": "demos/pr-gate/tests/test_demo.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/tests/test_recording_demo.py",
+    "source_sha256": "866f128b4d6dadd199747b947d532925f5515ff94a25c5b0149387267f61e0d8",
+    "destination": "demos/pr-gate/tests/test_recording_demo.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/tests/test_shipping.py",
+    "source_sha256": "19b017da518fe5e97f273c850d5eab6de6d96b9f454a19178c835c50877422b3",
+    "destination": "demos/pr-gate/tests/test_shipping.py"
+  },
+  {
+    "repository": "Demos",
+    "source_commit": "d21ab778aac28bff647096917be27a12ae17b276",
+    "source_path": "pr-gate/uv.lock",
+    "source_sha256": "e8115b6ed5515d3d4608fa7f81fa393ce92982a088451103a8f0f4f6889d32ff",
+    "destination": "demos/pr-gate/uv.lock"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/crewai/minimal.py",
+    "source_sha256": "5bb3bc3ca7ab009f23c4299c45cebea0faf36dd955b38b46e526b1c493548134",
+    "destination": "examples/crewai/minimal.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/demo/guardrails.py",
+    "source_sha256": "67e93db7355f9609e27a83ddb12efabc047a8f24fd7d86c90d5069c0d9c79ce3",
+    "destination": "examples/demo/guardrails.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/demo/langchain.py",
+    "source_sha256": "63f2d8983ef65f1a900b1fbd78a885c0ec366a527a071e97a263efe28f14afd7",
+    "destination": "examples/demo/langchain.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/demo/pure_python.py",
+    "source_sha256": "48cbe0a1eda5016fb27fffaa68a0317a3c04d559b8eb933d176245acc6fce251",
+    "destination": "examples/demo/pure_python.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/.gitignore",
+    "source_sha256": "dfc99fb29689ab20dc3f46b5a8e39654b831181752415fa0c87574b22ab2046c",
+    "destination": "examples/langchain/.gitignore"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/README.md",
+    "source_sha256": "7613d1783881c32dfc835988e147d37440a3c946af53fbf53c2c11a990dff589",
+    "destination": "examples/langchain/_customer_support/README.md"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/__init__.py",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "destination": "examples/langchain/_customer_support/__init__.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/agent.py",
+    "source_sha256": "248f59699717501fba82b6348279166fad90d1ba5b439a803ec98028220bac0e",
+    "destination": "examples/langchain/_customer_support/agent.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/car_rentals.py",
+    "source_sha256": "2b3677f55c57cd115488794037566f388fceea6bb613120f5ef72c6870691d1f",
+    "destination": "examples/langchain/_customer_support/car_rentals.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/company_policies.py",
+    "source_sha256": "6b0a13d31fbac392447d9ce08545b368a320e8d02ad2014acab0ff79ff9aaee2",
+    "destination": "examples/langchain/_customer_support/company_policies.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/database.py",
+    "source_sha256": "07d870e0cddd52d48ec71f36ac88641e2e9c240d16e55562b6c2716a208698be",
+    "destination": "examples/langchain/_customer_support/database.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/excursions.py",
+    "source_sha256": "1aa08ee500cc55096361d3fe66f4420370ef29b7fe948533371324ae88b21b84",
+    "destination": "examples/langchain/_customer_support/excursions.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/flights.py",
+    "source_sha256": "80dc1f99a2731b5379f2157586b397b5586d5b5881ce385c21fd2bfa4dded1bc",
+    "destination": "examples/langchain/_customer_support/flights.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/graph.py",
+    "source_sha256": "0ef06b753cdd5bbbcb61bea39f375d0035d049d6df170af00d90517109d26230",
+    "destination": "examples/langchain/_customer_support/graph.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/hotels.py",
+    "source_sha256": "d2063bf381283ebb92b083253cd59e67b4cef9a51453e7d8b0b1b534143ed9d8",
+    "destination": "examples/langchain/_customer_support/hotels.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/prereq.py",
+    "source_sha256": "55070078905a81b474c67b5108b921ec928eca40cfdc4e5c19967bf9a8ec63ee",
+    "destination": "examples/langchain/_customer_support/prereq.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/state.py",
+    "source_sha256": "6d7ec10bf8226aba986234fe5e3e872539553ccebb9006d16aa3beb36db0eee4",
+    "destination": "examples/langchain/_customer_support/state.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/_customer_support/utilities.py",
+    "source_sha256": "e72617a1ae2a0cd3bbaabe886f9b4cf5e1e9f694ea8ee0d780f8d57548f25983",
+    "destination": "examples/langchain/_customer_support/utilities.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/customer_support.py",
+    "source_sha256": "68e370544a7bd60a98e58411210a5a7b25c82c9d375146cc75a93e1b18d93c36",
+    "destination": "examples/langchain/customer_support.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/minimal.py",
+    "source_sha256": "7525358fac7488d2b97a2d115aa450c7bee8dd18950bfdd9c460983ddb0deb75",
+    "destination": "examples/langchain/minimal.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/langchain/pyproject.toml",
+    "source_sha256": "59313e5130fae611ec22ed1544135af321855caabd1594527e5c6da2248a191d",
+    "destination": "examples/langchain/pyproject.toml"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/minimal/pyproject.toml",
+    "source_sha256": "e603d868620ef6130aac671752eb2fb52778ae15ef9e5b0b909504ae9a9595ec",
+    "destination": "examples/minimal/pyproject.toml"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/minimal/simple_agent.py",
+    "source_sha256": "aa1dbef5f2e4e4072b8c6298693711e6662ad8f48ada5b29bfbeb50038a6837e",
+    "destination": "examples/minimal/simple_agent.py"
+  },
+  {
+    "repository": "maida",
+    "source_commit": "e515f2c64dac449548c8adc910458bc7603f8493",
+    "source_path": "examples/openai_agents/minimal.py",
+    "source_sha256": "b5d7288ca9097ec47bf94fe6d4b5592a096a82087a4bd8865fe482e68c4d5c3d",
+    "destination": "examples/openai_agents/minimal.py"
+  }
+]

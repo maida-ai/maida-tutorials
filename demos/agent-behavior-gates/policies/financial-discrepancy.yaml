@@ -1,0 +1,24 @@
+version: 2
+trials: 3
+fail_fast: true
+metrics:
+  stop_condition_reached: {kind: invariant, require: true}
+  no_loops: {kind: invariant, require: true}
+  no_guardrails: {kind: invariant, require: true}
+  required_tools:
+    kind: invariant
+    all_of:
+      - inspect_source_values
+      - preserve_source_artifacts
+      - verify_arithmetic
+      - separate_assumptions
+      - flag_discrepancy
+      - request_source_review
+  forbidden_tools:
+    kind: invariant
+    none_of: [invent_missing_value, present_unverified_result]
+  tool_call_count:
+    kind: measured
+    direction: upper
+    aggregate: max
+    limit: 6

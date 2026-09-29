@@ -1,0 +1,81 @@
+name: PR Gate Demo
+
+on:
+  pull_request:
+    paths:
+      - "demos/pr-gate/**"
+      - ".github/workflows/pr-gate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  tests:
+    name: Safe and regressed demo workflows
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v8.2.0
+        with:
+          version: "0.11.14"
+          python-version: "3.13"
+          enable-cache: true
+          cache-dependency-glob: "demos/pr-gate/uv.lock"
+
+      - name: Install locked environment
+        run: uv sync --directory demos/pr-gate --locked --dev
+
+      - name: Run project tests
+        run: uv run --directory demos/pr-gate --frozen python -m pytest -q
+
+      - name: Check formatting and lint
+        run: |
+          uv run --directory demos/pr-gate --frozen ruff check .
+          uv run --directory demos/pr-gate --frozen ruff format --check .
+
+  maida:
+    name: Intentional regression demonstration (expected FAIL)
+    # The committed fixture contains the regression. Normal PR checks assert
+    # both PASS and FAIL in isolated workspaces without publishing a false alarm.
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v8.2.0
+        with:
+          version: "0.11.14"
+          python-version: "3.13"
+          enable-cache: true
+          cache-dependency-glob: "demos/pr-gate/uv.lock"
+
+      # The Action launches the agent with setup-python, outside the uv project
+      # environment. Install the same locked dependencies there so its full
+      # unittest discovery can import the pytest-based harness modules too.
+      - name: Set up the Action Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install locked dependencies for the agent subprocess
+        run: |
+          uv export --directory demos/pr-gate --locked --all-groups --no-emit-project --output-file "$RUNNER_TEMP/pr-gate-requirements.txt" > /dev/null
+          uv pip install --python "$(command -v python)" --requirements "$RUNNER_TEMP/pr-gate-requirements.txt"
+
+      - name: Run Maida regression gate
+        uses: maida-ai/maida-assert@e196bc38c47c5b55b91964c99ec272bc783f253e # v5
+        with:
+          agent-script: demos/pr-gate/coding_agent.py
+          baseline: demos/pr-gate/.maida/baselines/coding-agent.json
+          policy: demos/pr-gate/.maida/policy.yaml
+          maida-version: "@e69109354f881758d32c4d659fe368ba04049fa2"
+          python-version: "3.13"
+          post-comment: "true"

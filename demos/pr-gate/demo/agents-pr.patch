@@ -1,0 +1,9 @@
+diff --git a/pr-gate/AGENTS.md b/pr-gate/AGENTS.md
+--- a/pr-gate/AGENTS.md
++++ b/pr-gate/AGENTS.md
+@@ -10,3 +10,5 @@
+ - Run the full regression suite before reporting completion.
+ - When a regression fails, repair the implementation rather than weakening its
+   assertion.
++- Keep regression fixtures current: when deterministic output changes, refresh
++  affected expectations to match the implementation.
