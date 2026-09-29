@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Deterministic Maida policy gates for Agent Behavior examples"
 requires-python = ">=3.12,<3.14"
 dependencies = [
-    "maida-ai",
+    "maida-ai>=0.6.0",
 ]
 
 [dependency-groups]
@@ -15,9 +15,6 @@ dev = [
 
 [tool.uv]
 package = false
-
-[tool.uv.sources]
-maida-ai = { git = "https://github.com/maida-ai/maida.git", rev = "873cd1de5f0204e324dc8d35099701fea63ecba8" }
 
 [tool.pytest.ini_options]
 addopts = "-ra"

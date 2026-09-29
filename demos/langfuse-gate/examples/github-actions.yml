@@ -22,11 +22,11 @@ jobs:
       - uses: actions/checkout@v7
 
       # Pin both repositories in production and update them deliberately.
-      - uses: maida-ai/maida-assert@24cbff5d839da60f876ba07c0eca13464b7dab2d
+      - uses: maida-ai/maida-assert@8ba54c181ef26df9eaecd38bb46a107756297b28 # v0.6.0
         with:
           trace-command: maida import langfuse --trace-id "$LANGFUSE_TRACE_ID"
           baseline: .maida/baselines/support-agent.json
           policy: .maida/policy.yaml
-          maida-version: '@873cd1de5f0204e324dc8d35099701fea63ecba8'
+          maida-version: 'v0.6.0'
           python-version: '3.13'
           post-comment: 'true'

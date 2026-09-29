@@ -5,19 +5,16 @@ description = "Practical tutorials and runnable examples for Maida behavioral re
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
 dependencies = [
-    "maida-ai>=0.5",
+    "maida-ai>=0.6.0",
 ]
 
 [project.optional-dependencies]
 langchain = [
-    "maida-ai[langchain]>=0.5",
+    "maida-ai[langchain]>=0.6.0",
 ]
 openai = [
-    "maida-ai[openai]>=0.5",
+    "maida-ai[openai]>=0.6.0",
 ]
 
 [dependency-groups]
 notebooks = ["jupyter", "ipykernel"]
-
-[tool.uv.sources]
-maida-ai = { git = "https://github.com/maida-ai/maida", rev = "e69109354f881758d32c4d659fe368ba04049fa2" }
