@@ -5,7 +5,7 @@ description = "A deterministic demo of Maida catching an AGENTS.md behavioral re
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
 dependencies = [
-    "maida-ai>=0.5.3",
+    "maida-ai>=0.6.0",
 ]
 
 [dependency-groups]
@@ -25,6 +25,3 @@ testpaths = ["tests"]
 [tool.ruff]
 target-version = "py312"
 line-length = 88
-
-[tool.uv.sources]
-maida-ai = { git = "https://github.com/maida-ai/maida", rev = "e69109354f881758d32c4d659fe368ba04049fa2" }

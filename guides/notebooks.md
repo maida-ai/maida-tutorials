@@ -52,7 +52,7 @@ Uses the OpenAI Agents SDK tracing API (`generation_span`, `function_span`) with
 
 **File:** `CrewAI/Mock CrewAI Agent.ipynb` **Historical isolated install:** `uv pip install "maida-ai[crewai]==0.5.3"`
 
-Use a separate virtual environment for this historical notebook. The root project no longer supplies a CrewAI extra; its pinned development engine does not support that installation path.
+Use a separate virtual environment for this historical notebook. The root project now uses Maida 0.6.0 and does not supply the CrewAI extra.
 
 Runs the same deterministic search → calculate → save workflow through CrewAI's public execution-hook API. Covers:
 
@@ -92,4 +92,4 @@ maida view
 
 Policy files require an explicit supported v2+ version (`version: 2` for these examples). Policy v1 and files without a version are unsupported.
 
-The restored baseline-relative `no_new_tools` rule requires engine commit `e69109354f881758d32c4d659fe368ba04049fa2`, pinned in the lockfile and CI so both evaluate the same rules.
+The baseline-relative `no_new_tools` rule is available in Maida 0.6.0. The root lockfile and CI both use that release for current lessons.

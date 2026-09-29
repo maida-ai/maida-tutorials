@@ -48,12 +48,10 @@ That is the same deterministic flow with a pause before each act. See the
 
 ## Try it with real Langfuse traces
 
-The demo pins Maida's merged importer revision because the feature has not yet
-reached the next PyPI release. Install that revision, then provide the same
-credentials used by your Langfuse SDK:
+The Langfuse importer is included in Maida 0.6.0. Install the released CLI, then provide the same credentials used by your Langfuse SDK:
 
 ```bash
-uv tool install "maida-ai @ git+https://github.com/maida-ai/maida.git@873cd1de5f0204e324dc8d35099701fea63ecba8"
+uv tool install "maida-ai==0.6.0"
 
 export LANGFUSE_PUBLIC_KEY=pk-lf-...
 export LANGFUSE_SECRET_KEY=sk-lf-...
@@ -122,10 +120,7 @@ uv run --frozen ruff check .
 uv run --frozen ruff format --check .
 ```
 
-The project pins Maida revision
-`873cd1de5f0204e324dc8d35099701fea63ecba8` for reproducibility. Replace the
-Git revision with a release only after verifying identical importer and gate
-behavior.
+The project lockfile pins the released Maida 0.6.0 engine for reproducible importer and gate behavior.
 
 ## Layout
 

@@ -98,7 +98,7 @@ leaves the real checkout unchanged.
 
 The checked-in instructions already contain the intentional regression. Normal pull requests run the safe and regressed paths as tests: the safe path must PASS, the candidate must FAIL for rewriting a regression test, and the tests fail if either result changes. The workflow succeeds when the lesson behaves correctly.
 
-To publish the deliberately failing Action check, manually run the **PR Gate Demo** workflow on the branch you want to demonstrate. Its **Intentional regression demonstration (expected FAIL)** job runs the checked-in candidate and publishes Maida's FAIL verdict. A red workflow is the expected outcome of this explicit rehearsal; it is not a failed installation. The job runs only on `workflow_dispatch`, so the practice fixture does not block unrelated tutorial contributions.
+To rehearse the GitHub Action, manually run the **PR Gate Demo** workflow on the branch you want to demonstrate. Its **Intentional regression demonstration (expected FAIL)** job runs the checked-in candidate in report-only mode, publishes Maida's FAIL verdict in an observational check, then fails the job because that verdict is the expected regression. A red workflow after the Maida verdict is the expected outcome; an input-resolution error is not. The job runs only on `workflow_dispatch`, so the practice fixture does not block unrelated tutorial contributions. Report-only checks are neutral and must not be required as merge gates.
 
 For a separate demonstration PR, start from the safe `demo/AGENTS.safe.md` instructions, then apply the supplied one-file change from the maida-tutorials repository root:
 
@@ -130,7 +130,7 @@ The following pieces are production Maida behavior:
 - Invariant evaluation over three isolated trials.
 - `no_new_tools` enforcement against the safe baseline, plus an explicit
   `forbidden_tools` rule for `rewrite_regression_test`.
-- The `maida-assert` GitHub check and sticky PR report.
+- The `maida-assert` GitHub check; a manually dispatched run has no PR to comment on.
 
 `uv.lock` pins the engine revision for reproducible rehearsals.
 
@@ -169,6 +169,4 @@ tests/                    application, harness, and gate tests
 The policy uses `version: 2` and checks all new tools against the baseline. Policy
 files require a supported v2+ version; v1 and missing versions are unsupported.
 
-The restored baseline-relative `no_new_tools` rule requires engine commit
-`e69109354f881758d32c4d659fe368ba04049fa2`, pinned in the lockfile and CI
-so both evaluate the same rules.
+The baseline-relative `no_new_tools` rule is available in Maida 0.6.0, pinned in this lab's lockfile and CI.

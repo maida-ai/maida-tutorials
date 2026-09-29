@@ -131,6 +131,7 @@ def test_committed_regression_is_blocked_from_repository_root(tmp_path, tool_nam
 
 
 def test_workflow_uses_the_locked_engine_and_current_action():
+    import json
     import re
     import tomllib
     import yaml
@@ -138,6 +139,9 @@ def test_workflow_uses_the_locked_engine_and_current_action():
     lock = tomllib.loads((PROJECT_ROOT / "uv.lock").read_text())
     engine = next(
         package for package in lock["package"] if package["name"] == "maida-ai"
+    )
+    contract = json.loads(
+        (PROJECT_ROOT.parents[1] / "tests/contracts/current-main.json").read_text()
     )
     workflow = yaml.safe_load(
         (PROJECT_ROOT.parents[1] / ".github/workflows/pr-gate.yml").read_text()
@@ -151,6 +155,16 @@ def test_workflow_uses_the_locked_engine_and_current_action():
         if "maida-assert@" in step.get("uses", "")
     )
     assert re.fullmatch(r"maida-ai/maida-assert@[0-9a-f]{40}", step["uses"])
-    assert (
-        step["with"]["maida-version"] == "@" + engine["source"]["git"].rsplit("#", 1)[1]
+    assert step["id"] == "maida"
+    assert step["with"]["mode"] == "report-only"
+    assert step["with"]["post-comment"] == "false"
+    assert step["with"]["maida-version"] == contract["engine_ref"]
+    assert engine["version"] == contract["engine_ref"].removeprefix("v")
+    verdict_step = next(
+        step
+        for step in workflow["jobs"]["maida"]["steps"]
+        if step.get("name") == "Fail on the expected Maida verdict"
     )
+    assert verdict_step["env"]["VERDICT"] == "${{ steps.maida.outputs.verdict }}"
+    assert 'if [ "$VERDICT" != "fail" ]; then' in verdict_step["run"]
+    assert "exit 1" in verdict_step["run"]

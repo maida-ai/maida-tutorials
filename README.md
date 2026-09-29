@@ -7,7 +7,7 @@ Don't let broken agent changes merge. Start with the [released coding-agent onbo
 Use Python 3.12 or 3.13 for the walkthroughs and maintained labs.
 
 ```bash
-uv tool install "maida-ai==0.5.3"
+uv tool install "maida-ai==0.6.0"
 maida demo --regression
 ```
 
@@ -25,7 +25,7 @@ Building a Python tool-calling agent? Use the [Python agent walkthrough](guides/
 - [coding-agent refactor demo](demos/coding_agent_refactor/): find repeated test runs hidden behind the same final answer.
 - [Broken PR demo](demos/broken_pr/): reproduce an unnecessary order lookup, then repair it.
 
-The practice labs explicitly simulate agent decisions and use pinned development snapshots where noted. They complement the released onboarding route; they do not establish that your live agent or GitHub branch protection works.
+The practice labs explicitly simulate agent decisions and use locked Maida releases. They complement the released onboarding route; they do not establish that your live agent or GitHub branch protection works.
 
 ## Go deeper when you need it
 
@@ -41,4 +41,4 @@ The [Maida coding-agent skill pack](https://github.com/maida-ai/skills/tree/main
 
 A lesson should start from a real developer task, state its checkpoint, show the expected result, exercise one failure and recovery, and keep all run data in a temporary or explicitly chosen local directory. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-The root lockfile pins an immutable development engine revision for the older reference labs, including restored `no_new_tools` behavior. The released route and its workflow test independently pin `maida-ai==0.5.3`. Do not present a development command as released onboarding. Repository releases follow the engine's `MAJOR.MINOR` compatibility line with their own `PATCH`, as described in the [cross-repository compatibility policy](https://github.com/maida-ai/maida/blob/main/CONTRIBUTING.md#versioning-and-compatibility).
+The root lockfile and published onboarding workflow use `maida-ai==0.6.0`. The [0.5 compatibility walkthrough](guides/coding-agent-0.5.md) and historical CrewAI notebook retain their explicit 0.5.3 pins. Repository releases follow the engine's `MAJOR.MINOR` compatibility line with their own `PATCH`, as described in the [cross-repository compatibility policy](https://github.com/maida-ai/maida/blob/main/CONTRIBUTING.md#versioning-and-compatibility).

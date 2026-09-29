@@ -13,7 +13,7 @@ The supported hook integration records tool activity and lifecycle events. It do
 Install the CLI and get the capture helper once:
 
 ```bash
-uv tool install "maida-ai==0.5.3"
+uv tool install "maida-ai==0.6.0"
 git clone https://github.com/maida-ai/maida-tutorials.git
 export MAIDA_TUTORIALS="$PWD/maida-tutorials"
 ```

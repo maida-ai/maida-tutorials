@@ -134,9 +134,11 @@ class BrokenPrDemoTests(unittest.TestCase):
             self.assertIn(expected, policy)
 
         workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
+        self.assertIn("ref: ${{ github.event.pull_request.head.sha }}", workflow)
+        self.assertIn("fetch-depth: 0", workflow)
         for expected in (
             "actions/checkout@v7",
-            "maida-ai/maida-assert@v5",
+            json.loads((REPO_ROOT / "tests/contracts/current-main.json").read_text())["action_ref"],
             "agent-script: demos/broken_pr/order_status_agent.py",
             "baseline: .maida/baselines/broken-pr-demo.json",
             "policy: .maida/policy.yaml",

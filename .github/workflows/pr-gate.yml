@@ -71,11 +71,24 @@ jobs:
           uv pip install --python "$(command -v python)" --requirements "$RUNNER_TEMP/pr-gate-requirements.txt"
 
       - name: Run Maida regression gate
-        uses: maida-ai/maida-assert@e196bc38c47c5b55b91964c99ec272bc783f253e # v5
+        id: maida
+        uses: maida-ai/maida-assert@8ba54c181ef26df9eaecd38bb46a107756297b28 # v0.6.0
         with:
           agent-script: demos/pr-gate/coding_agent.py
           baseline: demos/pr-gate/.maida/baselines/coding-agent.json
           policy: demos/pr-gate/.maida/policy.yaml
-          maida-version: "@e69109354f881758d32c4d659fe368ba04049fa2"
+          maida-version: v0.6.0
           python-version: "3.13"
-          post-comment: "true"
+          mode: report-only
+          post-comment: "false"
+
+      - name: Fail on the expected Maida verdict
+        env:
+          VERDICT: ${{ steps.maida.outputs.verdict }}
+        run: |
+          if [ "$VERDICT" != "fail" ]; then
+            echo "::error::Expected Maida FAIL for the committed regression; got '${VERDICT:-missing}'."
+            exit 2
+          fi
+          echo "::error::Maida reported the expected behavioral regression (FAIL)."
+          exit 1
