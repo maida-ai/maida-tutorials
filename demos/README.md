@@ -1,8 +1,9 @@
 # Practice one failure at a time
 
-Start with the [released onboarding route](https://maida.ai/docs/getting-started/) and the [real-repository walkthrough](../guides/coding-agent.md). These labs deepen a specific lesson after your first report.
+Start with the [canonical coding-agent project](pr-gate/): one storefront, real application tests, and four agent changes. One command shows PASS, an innocuous instruction edit, then green tests hiding a $15 shipping defect that Maida fails. Try skipped verification and self-improvement using the same gate.
 
-- [Shipping refactor](pr-gate/): real application tests, a deterministic coding harness, an instruction change, and a failed gate when the harness rewrites the test to hide a defect.
+## Other focused lessons
+
 - [Repeated test runs](coding_agent_refactor/): unchanged final answer, repeated work, then repair.
 - [Repeated order lookup](broken_pr/): the smallest pass/fail loop for a tool-calling agent.
 - [Imported traces](langfuse_import/): local fake API and idempotent read-only import.
