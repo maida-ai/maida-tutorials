@@ -14,6 +14,7 @@ import pytest
 PROJECT_ROOT = Path(__file__).parents[1]
 DEMO_FILES = (
     "AGENTS.md",
+    "CLAUDE.md",
     "coding_agent.py",
     "task.md",
     "storefront",

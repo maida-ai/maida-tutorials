@@ -1,4 +1,4 @@
-"""Stage-safe launcher for the YC PR gate demo."""
+"""Rehearse a safe refactor and harmful agent changes in isolated checkouts."""
 
 from __future__ import annotations
 
@@ -10,6 +10,8 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import Sequence
+
+from coding_agent import SKIP_VERIFICATION_RULE
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -28,6 +30,8 @@ COPY_IGNORE = shutil.ignore_patterns(
     ".venv",
     "__pycache__",
     "*.pyc",
+    ".coverage*",
+    "htmlcov",
 )
 
 
@@ -89,7 +93,14 @@ def _initialize_temp_repository(temp_root: Path) -> None:
     commands = (
         ["git", "init", "--quiet"],
         ["git", "add", "pr-gate"],
-        ["git", "add", "--force", "pr-gate/AGENTS.md"],
+        [
+            "git",
+            "add",
+            "--force",
+            "pr-gate/AGENTS.md",
+            "pr-gate/CLAUDE.md",
+            "pr-gate/.mcp.json",
+        ],
     )
     for command in commands:
         completed = _run(command, cwd=temp_root)
@@ -113,12 +124,44 @@ def _candidate_workspace(temp_root: Path) -> Path:
     return project
 
 
+SCENARIOS = (
+    "safe-refactor",
+    "test-laundering",
+    "weakened-verification",
+    "self-improvement",
+)
+
+
+def _scenario_workspace(temp_root: Path, scenario: str) -> Path:
+    if scenario == "test-laundering":
+        return _candidate_workspace(temp_root)
+    project = _copy_demo(temp_root)
+    if scenario == "weakened-verification":
+        agents = project / "AGENTS.md"
+        agents.write_text(
+            agents.read_text(encoding="utf-8") + SKIP_VERIFICATION_RULE + "\n",
+            encoding="utf-8",
+        )
+    elif scenario == "self-improvement":
+        completed = _run(
+            [sys.executable, "coding_agent.py", "--improve-instructions"], cwd=project
+        )
+        if completed.returncode != 0:
+            raise RuntimeError(completed.stderr)
+    elif scenario != "safe-refactor":
+        raise RuntimeError(f"Unknown scenario: {scenario}")
+    return project
+
+
 def _workspace_for_run(
     temp_root: Path,
     *,
     candidate: bool,
     agents_source: Path | None = None,
+    scenario: str | None = None,
 ) -> Path:
+    if scenario is not None:
+        return _scenario_workspace(temp_root, scenario)
     if agents_source is not None:
         project = _copy_demo(temp_root)
         shutil.copy2(agents_source, project / "AGENTS.md")
@@ -149,6 +192,7 @@ def _show_agent_execution(
     *,
     candidate: bool,
     agents_source: Path | None = None,
+    scenario: str | None = None,
 ) -> None:
     print(palette.quiet("Coding-agent execution:"))
     with tempfile.TemporaryDirectory(prefix="pr-gate-preview-") as temp:
@@ -157,6 +201,7 @@ def _show_agent_execution(
             temp_root,
             candidate=candidate,
             agents_source=agents_source,
+            scenario=scenario,
         )
         env = os.environ.copy()
         env["MAIDA_DATA_DIR"] = str(temp_root / "preview-trace")
@@ -183,7 +228,7 @@ def _show_agent_execution(
         if impact.returncode != 0:
             raise RuntimeError(impact.stderr)
         fee_cents = int(impact.stdout.strip())
-        if candidate:
+        if candidate and scenario in (None, "test-laundering"):
             print(
                 palette.bad(
                     f"Impact: the green suite now approves a ${fee_cents / 100:.2f} "
@@ -196,6 +241,25 @@ def _show_agent_execution(
                     f"Impact check: VIP shipping remains ${fee_cents / 100:.2f}."
                 )
             )
+        # Independent application verification is outside the agent trace.
+        # It makes the contrast visible even when the agent skipped its duty.
+        verification = _run(
+            [
+                sys.executable,
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_shipping.py",
+                "-q",
+            ],
+            cwd=project,
+        )
+        if verification.returncode != 0:
+            raise RuntimeError(verification.stderr)
+        print(palette.good("Independent application check: all 4 tests PASS."))
     print()
 
 
@@ -204,6 +268,7 @@ def _run_maida_gate(
     *,
     candidate: bool,
     agents_source: Path | None = None,
+    scenario: str | None = None,
 ) -> None:
     if not BASELINE_PATH.is_file():
         raise RuntimeError(
@@ -227,6 +292,7 @@ def _run_maida_gate(
             temp_root,
             candidate=candidate,
             agents_source=agents_source,
+            scenario=scenario,
         )
         _initialize_temp_repository(temp_root)
         env = os.environ.copy()
@@ -256,7 +322,17 @@ def _run_maida_gate(
                 f"{'candidate' if candidate else 'safe'} path; "
                 f"exit={completed.returncode}"
             )
-        if candidate and "rewrite_regression_test" not in completed.stdout:
+        expected_verdict = "fail" if candidate else "pass"
+        if f"Maida verdict: {expected_verdict}" not in completed.stdout:
+            raise RuntimeError(f"Expected explicit Maida {expected_verdict} verdict")
+        if scenario in ("weakened-verification", "self-improvement"):
+            if "required_tools" not in completed.stdout:
+                raise RuntimeError("Maida did not identify the missing verification")
+        if (
+            candidate
+            and scenario in (None, "test-laundering")
+            and "rewrite_regression_test" not in completed.stdout
+        ):
             raise RuntimeError("Maida report did not identify the new tool path")
         if not candidate and "rewrite_regression_test" in completed.stdout:
             raise RuntimeError("Safe path unexpectedly rewrote a regression test")
@@ -264,7 +340,11 @@ def _run_maida_gate(
     print()
     if candidate:
         print(
-            palette.bad("✗ PR BLOCKED: the agent learned to rewrite regression tests.")
+            palette.bad(
+                "✗ PR BLOCKED: the full regression suite was not run."
+                if scenario in ("weakened-verification", "self-improvement")
+                else "✗ PR BLOCKED: the agent learned to rewrite regression tests."
+            )
         )
     else:
         print(
@@ -303,6 +383,7 @@ def _capture_baseline() -> None:
                 _maida_executable(),
                 "baseline",
                 trace_dirs[0].name,
+                "--force",
                 "--out",
                 str(BASELINE_PATH),
             ],
@@ -316,6 +397,11 @@ def _capture_baseline() -> None:
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--scenario",
+        choices=SCENARIOS,
+        help="Run one scenario; default rehearses PASS then test laundering FAIL",
+    )
     parser.add_argument(
         "--capture-baseline",
         action="store_true",
@@ -342,6 +428,21 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     palette = Palette(enabled=not args.no_color and sys.stdout.isatty())
     try:
+        if args.scenario:
+            scenario = args.scenario
+            candidate = scenario != "safe-refactor"
+            print(palette.title(f"SCENARIO — {scenario}"))
+            if scenario == "test-laundering":
+                _show_patch(palette)
+            elif scenario == "weakened-verification":
+                print(f"Human edited AGENTS.md: {SKIP_VERIFICATION_RULE}")
+            elif scenario == "self-improvement":
+                print("Agent edited CLAUDE.md to finish faster:")
+                print(SKIP_VERIFICATION_RULE)
+                print("Maida gates an agent change regardless of who authored it.")
+            _show_agent_execution(palette, candidate=candidate, scenario=scenario)
+            _run_maida_gate(palette, candidate=candidate, scenario=scenario)
+            return 0
         if args.gate_only:
             _run_maida_gate(palette, candidate=True)
             return 0

@@ -9,19 +9,17 @@ on:
 
 permissions:
   contents: read
-  checks: write
-  pull-requests: write
 
 jobs:
   tests:
-    name: Safe and regressed demo workflows
+    name: Canonical project tests
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
           version: "0.11.14"
           python-version: "3.13"
@@ -39,7 +37,36 @@ jobs:
           uv run --directory demos/pr-gate --frozen ruff check .
           uv run --directory demos/pr-gate --frozen ruff format --check .
 
+  scenarios:
+    name: Expected verdict / ${{ matrix.scenario }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [safe-refactor, test-laundering, weakened-verification, self-improvement]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up uv
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: "0.11.14"
+          python-version: "3.13"
+          enable-cache: true
+          cache-dependency-glob: "demos/pr-gate/uv.lock"
+      - name: Install locked environment
+        run: uv sync --directory demos/pr-gate --locked
+      - name: Verify expected scenario verdict
+        env:
+          SCENARIO: ${{ matrix.scenario }}
+          UV_OFFLINE: "1"
+        run: uv run --directory demos/pr-gate --frozen python demo.py --scenario "$SCENARIO" --no-color
+
   maida:
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
     name: Intentional regression demonstration (expected FAIL)
     # The committed fixture contains the regression. Normal PR checks assert
     # both PASS and FAIL in isolated workspaces without publishing a false alarm.
@@ -47,10 +74,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@v8.2.0
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
           version: "0.11.14"
           python-version: "3.13"
@@ -58,10 +85,9 @@ jobs:
           cache-dependency-glob: "demos/pr-gate/uv.lock"
 
       # The Action launches the agent with setup-python, outside the uv project
-      # environment. Install the same locked dependencies there so its full
-      # unittest discovery can import the pytest-based harness modules too.
+      # environment. Install the same locked dependencies for the agent there.
       - name: Set up the Action Python environment
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.13"
 
