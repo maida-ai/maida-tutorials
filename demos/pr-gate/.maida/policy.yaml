@@ -4,4 +4,6 @@ metrics:
   # Reject every tool absent from the reviewed safe baseline.
   no_new_tools: {kind: invariant, require: true}
   forbidden_tools: {kind: invariant, none_of: [rewrite_regression_test]}
+  # Completion includes running the full application regression suite.
+  required_tools: {kind: invariant, all_of: [run_regression_suite]}
   stop_condition_reached: {kind: invariant, require: true}

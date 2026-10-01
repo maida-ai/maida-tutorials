@@ -1,16 +1,19 @@
 {
-  "schema_version": "0.2",
-  "created_at": "2026-07-28T01:23:44.655Z",
-  "source_run_id": "2a7cca7072d0fb0dd266608d0b751a8b",
+  "schema_version": "0.3.1",
+  "created_at": "2026-10-01T03:42:26.507Z",
+  "source_run_id": "51674a2a1eb596f6bb00a0f9ed425f59",
+  "source_run_ids": [
+    "51674a2a1eb596f6bb00a0f9ed425f59"
+  ],
   "source_run_name": "storefront-coding-agent",
   "summary": {
     "status": "ok",
-    "total_events": 7,
+    "total_events": 8,
     "llm_calls": 0,
-    "tool_calls": 7,
+    "tool_calls": 8,
     "errors": 0,
     "loop_warnings": 0,
-    "duration_ms": 174,
+    "duration_ms": 93,
     "total_tokens": 0
   },
   "tool_path": [
@@ -23,6 +26,7 @@
   ],
   "tool_call_sequence": [
     "read_project_instructions",
+    "read_project_instructions",
     "read_coding_task",
     "inspect_shipping_rule",
     "refactor_shipping_rule",
@@ -30,9 +34,8 @@
     "repair_shipping_rule",
     "run_regression_suite"
   ],
-  "_tool_call_sequence_exact": true,
   "tool_call_counts": {
-    "read_project_instructions": 1,
+    "read_project_instructions": 2,
     "read_coding_task": 1,
     "inspect_shipping_rule": 1,
     "refactor_shipping_rule": 1,
@@ -49,8 +52,87 @@
     "TOOL_CALL",
     "TOOL_CALL",
     "TOOL_CALL",
+    "TOOL_CALL",
     "RUN_END"
   ],
-  "guardrail_events": [],
-  "final_status": "ok"
+  "final_status": "ok",
+  "trial_sample": {
+    "trials": 1,
+    "environment_fingerprint": null,
+    "metrics": {
+      "step_count": [
+        8.0
+      ],
+      "tool_call_count": [
+        8.0
+      ],
+      "cost_tokens": [
+        0.0
+      ],
+      "latency_ms": [
+        93.0
+      ],
+      "llm_call_count": [
+        0.0
+      ],
+      "error_count": [
+        0.0
+      ],
+      "loop_warning_count": [
+        0.0
+      ]
+    },
+    "invariants": {},
+    "signature_ids": [
+      "9c869a0a9a04c36c070af1b8f337dd38b5d5c47179839b61175bb6c6388ca95f"
+    ],
+    "signature_counts": {
+      "9c869a0a9a04c36c070af1b8f337dd38b5d5c47179839b61175bb6c6388ca95f": 1
+    },
+    "signatures": {
+      "9c869a0a9a04c36c070af1b8f337dd38b5d5c47179839b61175bb6c6388ca95f": {
+        "tool_path": [
+          "inspect_shipping_rule",
+          "read_coding_task",
+          "read_project_instructions",
+          "refactor_shipping_rule",
+          "repair_shipping_rule",
+          "run_regression_suite"
+        ],
+        "tool_call_sequence": [
+          "read_project_instructions",
+          "read_project_instructions",
+          "read_coding_task",
+          "inspect_shipping_rule",
+          "refactor_shipping_rule",
+          "run_regression_suite",
+          "repair_shipping_rule",
+          "run_regression_suite"
+        ],
+        "tool_call_counts": {
+          "read_project_instructions": 2,
+          "read_coding_task": 1,
+          "inspect_shipping_rule": 1,
+          "refactor_shipping_rule": 1,
+          "run_regression_suite": 2,
+          "repair_shipping_rule": 1
+        },
+        "llm_models_used": [],
+        "event_type_sequence": [
+          "RUN_START",
+          "TOOL_CALL",
+          "TOOL_CALL",
+          "TOOL_CALL",
+          "TOOL_CALL",
+          "TOOL_CALL",
+          "TOOL_CALL",
+          "TOOL_CALL",
+          "TOOL_CALL",
+          "RUN_END"
+        ],
+        "final_status": "ok"
+      }
+    }
+  },
+  "guardrail_events": []
 }

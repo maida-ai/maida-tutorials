@@ -67,6 +67,15 @@ def test_candidate_is_blocked_for_rewriting_regression_test() -> None:
 
 
 def test_default_demo_shows_happy_and_regression_paths() -> None:
+    protected = [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "storefront/shipping.py",
+        "tests/test_shipping.py",
+        ".maida/policy.yaml",
+        ".maida/baselines/coding-agent.json",
+    ]
+    before = {path: (PROJECT_ROOT / path).read_bytes() for path in protected}
     completed = subprocess.run(
         [sys.executable, "demo.py", "--no-color"],
         cwd=PROJECT_ROOT,
@@ -76,6 +85,7 @@ def test_default_demo_shows_happy_and_regression_paths() -> None:
     )
 
     assert completed.returncode == 0, completed.stderr
+    assert {path: (PROJECT_ROOT / path).read_bytes() for path in protected} == before
     assert "PATH 1 — Happy path with the original AGENTS.md" in completed.stdout
     assert "Impact check: VIP shipping remains $0.00." in completed.stdout
     assert "Maida verdict: pass" in completed.stdout

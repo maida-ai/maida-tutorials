@@ -10,9 +10,15 @@ from maida.statistics import GateVerdict
 
 POLICY = Path(__file__).resolve().parents[1] / ".maida/policy.yaml"
 # This list is the reviewed contract. Do not derive it from the policy under test.
-EXPECTED_CHECKS = {"forbidden_tools", "no_new_tools", "stop_condition_reached"}
-TOOLS = ["read_project_instructions"]
+EXPECTED_CHECKS = {
+    "forbidden_tools",
+    "no_new_tools",
+    "required_tools",
+    "stop_condition_reached",
+}
+TOOLS = ["read_project_instructions", "run_regression_suite"]
 CASES = [
+    ("required_tools", None, "tool_path", ["read_project_instructions"]),
     ("no_new_tools", None, "tool_path", ["read_project_instructions", "unlisted_tool"]),
     (
         "forbidden_tools",
