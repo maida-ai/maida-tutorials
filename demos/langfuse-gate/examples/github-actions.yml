@@ -27,6 +27,6 @@ jobs:
           trace-command: maida import langfuse --trace-id "$LANGFUSE_TRACE_ID"
           baseline: .maida/baselines/support-agent.json
           policy: .maida/policy.yaml
-          maida-version: 'v0.6.0'
+          maida-version: 'v0.6.1'
           python-version: '3.13'
           post-comment: 'true'

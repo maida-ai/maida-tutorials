@@ -1,4 +1,4 @@
-"""Preview or add released Maida capture hooks to one project's settings."""
+"""Historical 0.5 capture setup; use maida init with Maida 0.6.1 or newer."""
 
 from __future__ import annotations
 

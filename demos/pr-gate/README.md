@@ -43,7 +43,7 @@ The safe and test-laundering paths first try a refactor that drops the VIP excep
 
 The skipped-verification paths use a correct refactor but omit the agent's full test run. Independent application verification still passes; it is outside the agent trace and cannot satisfy the agent's responsibility. Self-improvement first invokes the same harness with `--improve-instructions` to replace its own full-verification rule with the faster shortcut. That edited configuration is then evaluated as an ordinary candidate change.
 
-All four scenarios use the same checked-in safe baseline, `.maida/policy.yaml`, and released Maida 0.6.0 interface:
+All four scenarios use the same checked-in safe baseline, `.maida/policy.yaml`, and released Maida 0.6.1 interface:
 
 ```bash
 maida run coding_agent.py --baseline .maida/baselines/coding-agent.json --policy .maida/policy.yaml --format markdown

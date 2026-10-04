@@ -354,18 +354,19 @@ wheels = [
 
 [[package]]
 name = "fastapi"
-version = "0.141.1"
+version = "0.142.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "annotated-doc" },
+    { name = "opentelemetry-api" },
     { name = "pydantic" },
     { name = "starlette" },
     { name = "typing-extensions" },
     { name = "typing-inspection" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8a/02/91e3416a8fdd715abb903a952a6bec7cdd8d14eed55d415fc8595524c319/fastapi-0.141.1.tar.gz", hash = "sha256:e8822fc40db1e1858054d7a949a888695bc9bdce70139178e33bd2871a453ca1", size = 425799, upload-time = "2026-07-29T17:18:05.568Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/56/4f/f7c30a73127e0a8bbffe788369b8359e530b01ae06e2757936fa35bc5e6d/fastapi-0.142.2.tar.gz", hash = "sha256:06366626f2e70576367714d9ab2fe8472e6c8456dba69b399f9f797ab5e92570", size = 466721, upload-time = "2026-09-30T09:51:11.277Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/cb/03/10388a42375ee7e4ac9b94eb2c5c569c8b5795e377e701c9ac3ad63de890/fastapi-0.141.1-py3-none-any.whl", hash = "sha256:bfb91aa2d334c61cb35ba9a116fc123b3d3df31640b801cf57a7a78ec3f603b3", size = 131954, upload-time = "2026-07-29T17:18:04.364Z" },
+    { url = "https://files.pythonhosted.org/packages/a0/b6/78aaf9141fb46742928c113f3cf6ef2259d538cb02b604b7656c1dc9883c/fastapi-0.142.2-py3-none-any.whl", hash = "sha256:bd5f4d81f1e93a88bcd77caf4dfe3c2dbffc3805407a0007e9a114c18b3a670b", size = 144409, upload-time = "2026-09-30T09:51:09.8Z" },
 ]
 
 [[package]]
@@ -1055,7 +1056,7 @@ wheels = [
 
 [[package]]
 name = "maida-ai"
-version = "0.6.0"
+version = "0.6.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "fastapi" },
@@ -1067,9 +1068,9 @@ dependencies = [
     { name = "typer" },
     { name = "uvicorn" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8b/b2/e682fbb02f2d74181ad1f0e11d2328ab2d4409f1f9aad4f9b3c7684585ae/maida_ai-0.6.0.tar.gz", hash = "sha256:a4912d42650376b4b025676bd1e0ecc9ff50ee07e8c72904c540f1ce08735654", size = 857333, upload-time = "2026-09-29T20:33:03.743Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e8/a2/51422a1471499d13ca94731996904ae27f35ae4953311158eddbad88cc02/maida_ai-0.6.1.tar.gz", hash = "sha256:8ca0d3cfd06ec0a8ed21f01c621c73cb47e6c846a77e11625b0659217775c16f", size = 896565, upload-time = "2026-10-04T19:33:36.75Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/60/bb/4f070732c2aea1653d6a077977f0c31341f330f8d7aaadb8f63029e37778/maida_ai-0.6.0-py3-none-any.whl", hash = "sha256:3ba62fdd2e56158d55280dc96573c65d2ab4410f0ecf088eb56e4353db2701dd", size = 213614, upload-time = "2026-09-29T20:33:01.952Z" },
+    { url = "https://files.pythonhosted.org/packages/9d/05/fb21474fa4c52c7383b31318ff4cc9b008c9cbbb1672bcc4efe6ac7c221e/maida_ai-0.6.1-py3-none-any.whl", hash = "sha256:a2c74097e18df1ffab7fe83563528e872894d5062e62c32ced23712229ddb872", size = 226403, upload-time = "2026-10-04T19:33:35.386Z" },
 ]
 
 [package.optional-dependencies]
@@ -2177,9 +2178,9 @@ notebooks = [
 
 [package.metadata]
 requires-dist = [
-    { name = "maida-ai", specifier = ">=0.6.0" },
-    { name = "maida-ai", extras = ["langchain"], marker = "extra == 'langchain'", specifier = ">=0.6.0" },
-    { name = "maida-ai", extras = ["openai"], marker = "extra == 'openai'", specifier = ">=0.6.0" },
+    { name = "maida-ai", specifier = ">=0.6.1" },
+    { name = "maida-ai", extras = ["langchain"], marker = "extra == 'langchain'", specifier = ">=0.6.1" },
+    { name = "maida-ai", extras = ["openai"], marker = "extra == 'openai'", specifier = ">=0.6.1" },
 ]
 provides-extras = ["langchain", "openai"]
 
@@ -2276,15 +2277,15 @@ wheels = [
 
 [[package]]
 name = "uvicorn"
-version = "0.53.0"
+version = "0.54.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
     { name = "h11" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5d/ad/04bbb797c84fc1f26cb171f7394716f4865ffb8d8c5e1eef42565c2dfa6b/uvicorn-0.53.0.tar.gz", hash = "sha256:a9356f0cb89b3b8621529c5d5eebd69bfe154f4c3f68b4cf2de47e45fa855c2e", size = 110881, upload-time = "2026-09-14T07:44:23.815Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/da/34/30e9280707135d2cfc589dfff3cb796bd07a3aeb1a3e415ba09dd89d7bb4/uvicorn-0.54.0.tar.gz", hash = "sha256:a2e33cbfaa0306f8e6b0c13e0cb89d7d7a2da3e62b90c66e18c33d9807b28620", size = 112283, upload-time = "2026-09-25T06:52:37.601Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/76/18/0eea75741ee812e9f598b687619ce2454f6c3a1c5cd21ea990ec6bd26f45/uvicorn-0.53.0-py3-none-any.whl", hash = "sha256:e8dca71ec86dce5f04e333f0d56cdedf942446e6643b9cea1af0d6d3a02cb03e", size = 87081, upload-time = "2026-09-14T07:44:22.179Z" },
+    { url = "https://files.pythonhosted.org/packages/38/0c/b54a4fdd7f90a3af8b02ebc9ce6712c2c208b7926a2f7bad95c33ebbe943/uvicorn-0.54.0-py3-none-any.whl", hash = "sha256:505bdb0f318731d45f1f712071fc781a8981f6847a31c902c9f5e652d4f67faf", size = 87427, upload-time = "2026-09-25T06:52:35.829Z" },
 ]
 
 [[package]]
