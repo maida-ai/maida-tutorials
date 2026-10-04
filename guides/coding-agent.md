@@ -15,21 +15,22 @@ maida init
 # Run one normal Claude Code task and exit the session.
 
 maida check
-# Follow the printed:
-maida view <TRACE_ID>
+# Then run the exact "View:" command printed by Maida.
 ```
 
 Approve init's setup preview, then start a **new** session with `claude`. Complete a normal task and exit normally. For a short first task, ask: **“Find this repository's test command and cite the configuration file that defines it. Do not edit files or install dependencies.”** Check the answer yourself.
 
-**Success looks like `3 active checks passed`**, your task's trace ID, and the exact viewer command. Replace `<TRACE_ID>` with that ID and inspect the same task's timeline. No tutorial clone, hook installer, or agent-code changes are needed.
+**Success looks like `3 active checks passed`**, your task's trace ID, and the exact viewer command. Run that command to inspect the same task's timeline. No tutorial clone, hook installer, or agent-code changes are needed.
+
+For example: `maida view 83aa19e3`. Use the command from your own report.
 
 **Runs on your machine or CI runner. No Maida cloud account required.** Task evidence is not uploaded to Maida; your agent's normal provider use, permissions, and costs are separate.
 
-If Maida is installed in the project's uv environment, use `uv run maida init`, `uv run maida check`, and the printed `uv run maida view <TRACE_ID>`. Init connects that installation to the agent, so plain `claude` works afterward.
+If Maida is installed in the project's uv environment, use `uv run maida init`, `uv run maida check`, and the printed viewer command (for example, `uv run maida view 83aa19e3`). Init connects that installation to the agent, so plain `claude` works afterward.
 
 ## Investigate a failed check
 
-**Follow `maida view <TRACE_ID>` from the report**, inspect the failure and tool sequence, repair the cause, and repeat the task. Missing or unfinished newest capture gives recovery guidance instead of selecting an older task.
+**Run the exact `View:` command printed in the report**, inspect the failure and tool sequence, repair the cause, and repeat the task. Missing or unfinished newest capture gives recovery guidance instead of selecting an older task.
 
 The first check requires successful completion, no recorded loops, and no recorded guardrail events. It does not compare a baseline or apply an existing policy. Capture observes tool activity and lifecycle, not answer correctness or complete model-call, token, or latency coverage. A recovered child failure remains visible without failing a normally completed task.
 
@@ -40,7 +41,8 @@ The first check requires successful completion, no recorded loops, and no record
 Keep the task text, starting commit, agent/model versions, and configuration with your review. Choose a successful observation you understand. Use its trace ID from `maida check`:
 
 ```bash
-maida init --from-run <TRACE_ID>
+TRACE_ID="paste-the-id-from-maida-check"
+maida init --from-run "$TRACE_ID"
 ```
 
 Review `.maida/starter/policy.yaml`. It proposes up to three requirements: successful completion, no recorded loops, and no recorded guardrail events. Delete anything your task does not require; keep at least one meaningful check. The draft is inactive, and the observed requirements are **candidates until you accept them**. One task is not a guarantee about future or unrecorded behavior.
@@ -60,7 +62,8 @@ Repeat the same task from the same starting repository state in a fresh session,
 ```bash
 maida check
 # Use the new trace ID from this report:
-maida assert <CANDIDATE_TRACE_ID> --baseline .maida/baselines/agent.json --policy .maida/policy.yaml
+CANDIDATE_TRACE_ID="paste-the-new-id-here"
+maida assert "$CANDIDATE_TRACE_ID" --baseline .maida/baselines/agent.json --policy .maida/policy.yaml
 ```
 
 Read the verdict and individual checks: **PASS** applies to the selected evidence and requirements; **FAIL** identifies a violation; **INCONCLUSIVE** needs more suitable evidence or a reviewed requirement. Exit zero alone is not approval. Pass the captured task ID explicitly: bare assertions and `--from-run latest` retain SDK/Python selection and could choose an unrelated run.
