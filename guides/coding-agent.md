@@ -1,92 +1,91 @@
-# Protect one coding task
+# Check your coding agent before merge
 
-Start with the [quickstart](https://maida.ai/docs/getting-started/) and its offline `maida demo --regression`. Then use a task in your own repository. Automatic local capture setup and `maida check` require Maida 0.6.1 or newer. You can stop after the first report and return to baseline review later.
+**A good-looking answer and green tests can hide an agent that worked worse.** Maida checks the agent's execution behavior alongside your tests of the result. Start with one normal task in your own repository, then protect the next change.
 
-## Checkpoint 1: check your normal work
+## Try Maida on your own task
 
-Choose a short, read-only task: **“Find the command this repository uses to run its tests. Cite the configuration file that defines it. Do not edit files or install dependencies.”** Check the answer against that file. Use a repository you already understand so the task itself is small.
-
-The supported hook integration records tool activity and lifecycle events. It does not provide complete model usage, token, or topology coverage. Maida stores this evidence locally; your coding agent still uses its usual model provider. An isolated CLI install is enough; the project can use any language. Use Python 3.12 or newer.
-
-### Integration: Claude Code command hooks
-
-Install the standalone CLI, then run setup inside your Git repository:
+Use Python 3.12–3.14 and an existing Git repository with Claude Code. Your project can use any language:
 
 ```bash
 uv tool install "maida-ai==0.6.1"
-cd /path/to/your/repo
+
+cd my-repo
 maida init
+
+# Run one normal Claude Code task and exit the session.
+
+maida check
+# Then run the exact "View:" command printed by Maida.
 ```
 
-Maida detects the agent environment, previews passive capture hooks and local setup files, and asks for approval before writing. For Claude Code, it uses `.claude/settings.local.json` and `.maida/local.json`, preserves shared settings and other hooks, and excludes local setup files from Git. It creates no policy or baseline. If detection is ambiguous, use `maida init --agent claude-code`. Noninteractive first-run setup previews changes and exits `2`; approve it from an interactive terminal.
+Approve init's setup preview, then start a **new** session with `claude`. Complete a normal task and exit normally. For a short first task, ask: **“Find this repository's test command and cite the configuration file that defines it. Do not edit files or install dependencies.”** Check the answer yourself.
 
-If upgrading an older standalone CLI, use `uv tool install --force "maida-ai==0.6.1"`. Existing hooks may also need upgrading: follow init's recovery guidance, approve the preview, and restart the coding-agent session. Shared legacy hooks require `maida detach --agent claude-code` before init; user-wide hooks require removing the old Maida entries in the agent's `/hooks` menu. See the [init reference](https://maida.ai/docs/cli/init/) for inherited-hook handling.
+**Success looks like `3 active checks passed`**, your task's trace ID, and the exact viewer command. Run that command to inspect the same task's timeline. No tutorial clone, hook installer, or agent-code changes are needed.
 
-Already installed Maida into the project's environment? Use `uv run maida init` and `uv run maida check`. Init binds hooks to that environment, so plain `claude` works afterward without Maida on the global PATH. Review the actual local files against the preview; Git diff omits ignored or untracked settings. Start a **new** session here, complete the short task, then exit normally:
+For example: `maida view 83aa19e3`. Use the command from your own report.
+
+**Runs on your machine or CI runner. No Maida cloud account required.** Task evidence is not uploaded to Maida; your agent's normal provider use, permissions, and costs are separate.
+
+If Maida is installed in the project's uv environment, use `uv run maida init`, `uv run maida check`, and the printed viewer command (for example, `uv run maida view 83aa19e3`). Init connects that installation to the agent, so plain `claude` works afterward.
+
+## Investigate a failed check
+
+**Run the exact `View:` command printed in the report**, inspect the failure and tool sequence, repair the cause, and repeat the task. Missing or unfinished newest capture gives recovery guidance instead of selecting an older task.
+
+The first check requires successful completion, no recorded loops, and no recorded guardrail events. It does not compare a baseline or apply an existing policy. Capture observes tool activity and lifecycle, not answer correctness or complete model-call, token, or latency coverage. A recovered child failure remains visible without failing a normally completed task.
+
+## Protect the next agent change
+
+**Keep the behavior you reviewed, then compare the next change.** Instructions, skills, tools, model configuration, harness code, and application code can all change behavior. Maida gates the resulting change whether a human or the agent authored it.
+
+Keep the task text, starting commit, agent/model versions, and configuration with your review. Choose a successful observation you understand. Use its trace ID from `maida check`:
 
 ```bash
-claude
+TRACE_ID="paste-the-id-from-maida-check"
+maida init --from-run "$TRACE_ID"
 ```
 
-The session-end hook imports the completed run automatically. Check it immediately:
+Review `.maida/starter/policy.yaml`. It proposes up to three requirements: successful completion, no recorded loops, and no recorded guardrail events. Delete anything your task does not require; keep at least one meaningful check. The draft is inactive, and the observed requirements are **candidates until you accept them**. One task is not a guarantee about future or unrecorded behavior.
+
+After reviewing the requirements, accept them with a reason:
+
+```bash
+maida init --reviewed --reason "This test-command lookup must finish without recorded loops or guardrail stops"
+```
+
+Expect `.maida/policy.yaml`, `.maida/baselines/agent.json`, and a review record with accepted hashes. Keep those files for the next comparison.
+
+### Check the next change
+
+Repeat the same task from the same starting repository state in a fresh session, changing only the agent configuration or implementation you intend to compare. Exit normally, then:
 
 ```bash
 maida check
+# Use the new trace ID from this report:
+CANDIDATE_TRACE_ID="paste-the-new-id-here"
+maida assert "$CANDIDATE_TRACE_ID" --baseline .maida/baselines/agent.json --policy .maida/policy.yaml
 ```
 
-Expect your task's trace ID, a report checking successful completion, recorded loop warnings and recorded guardrail events, and the exact viewer command. No baseline or policy is needed; existing policy files do not affect `check`. These checks do not test answer correctness, forbid edits, or establish anything about unrecorded behavior. A recovered child failure remains visible in the error count without making a normally completed task fail the completion check.
+Read the verdict and individual checks: **PASS** applies to the selected evidence and requirements; **FAIL** identifies a violation; **INCONCLUSIVE** needs more suitable evidence or a reviewed requirement. Exit zero alone is not approval. Pass the captured task ID explicitly: bare assertions and `--from-run latest` retain SDK/Python selection and could choose an unrelated run.
 
-Missing or unfinished newest capture exits `2` with recovery guidance instead of selecting an older task or an SDK run. If a check fails, follow the printed `maida view TRACE_ID` command to inspect that same task, fix the cause, and retry. When launched through uv, the printed command includes `uv run`. The [capture guide](https://maida.ai/docs/claude-code/) covers abrupt-exit recovery and richer exporter capture.
+Reproduce one safe, relevant failure and repair it without changing the baseline. Add reviewed requirements for any responsibility you need to protect; the small starter does not automatically protect test execution or detect test rewriting.
 
-**This is the first useful checkpoint.** You have checked your own task and have local evidence to inspect. Capture defaults to `~/.maida/projects/<project-id>/`, outside Git; each initialized checkout has its own identity. A configured Maida storage override changes the parent while retaining project isolation. No storage environment variable is needed for this flow. To stop capture, run `maida detach --agent claude-code`, approve its preview, and restart the agent session. Saved evidence and other hooks are preserved; reconnect with `maida init --agent claude-code`.
+## See green tests approve a broken change
 
-## Checkpoint 2: review a small contract
+The [canonical storefront demo](../demos/pr-gate/) makes the difference visible: a coding agent rewrites the VIP regression test to approve **$15 shipping instead of $0**. All four application tests pass. **Maida fails the agent change** because its reviewed policy protects the regression test. The same project demonstrates skipped verification and an agent weakening its own instructions.
 
-Keep the task text, starting commit, agent/model versions, and configuration with your review. Check the installed command contract:
+This deterministic rehearsal uses released Maida v0.6.1 and runs offline after installation. It is optional practice. For a smaller canned report without a clone, run `maida demo --regression`; expect FAIL and a PR-comment preview. The rehearsal exits `0` for that expected result.
 
-```bash
-maida init --help
-```
+## Add the PR gate when local protection works
 
-The explicit `--from-run` and `--reviewed --reason` workflow remains available. If you are using Maida 0.5.x, continue with the [0.5 compatibility walkthrough](coding-agent-0.5.md#checkpoint-2-review-a-small-contract); it accounts for that release's different comparison interface.
+Use the [gate skill](https://github.com/maida-ai/skills/tree/main/product/maida-add-regression-gate) to make the task repeatable with pinned versions and explicit budgets. CI needs a repeatable scenario, not a saved interactive session. Then follow the [Action setup and repository protection](https://github.com/maida-ai/maida-assert#add-the-merge-boundary).
 
-Draft from the known-good task using the trace ID printed by `maida check`. Replace `KNOWN_GOOD_TRACE_ID` below with that ID:
+Test the gate on an actual PR, including a fresh result on the new head after intentional acceptance. Configure required checks and workflow-file review protection. Keep the reviewed reason and evidence; do not replace a baseline just to get green.
 
-```bash
-maida init --from-run KNOWN_GOOD_TRACE_ID
-```
+## Setup help and reference
 
-Check the printed workflow and trace ID. `--from-run latest` retains SDK/Python selection and could select a demo run instead of your captured task. Open `.maida/starter/policy.yaml`. It proposes at most three observed invariants: successful completion, no recorded loops, and no recorded guardrail events. Delete anything your task does not require; keep at least one meaningful requirement. The draft is inactive. One observed run is not a guarantee, and absent capture is not proof that an action never occurred.
+Init previews automatic local setup and preserves existing settings and other hooks. If detection is ambiguous, use `maida init --agent claude-code`. First-run setup needs an interactive terminal; noninteractive setup previews changes and exits `2`.
 
-Only after reviewing the candidates, accept them with your reason:
+Upgrade an older standalone install with `uv tool install --force "maida-ai==0.6.1"`, rerun init, and follow its recovery guidance. Restart the agent session afterward. To stop capture, run `maida detach --agent claude-code`, approve the preview, and restart. Other hooks and saved evidence are preserved; reconnect with `maida init --agent claude-code`.
 
-```bash
-maida init --reviewed --reason "This test-command lookup must complete without recorded loops or guardrail stops"
-```
-
-Expect `.maida/policy.yaml`, `.maida/baselines/agent.json`, and a review record with the accepted hashes. No hand-written policy template or run-ID extraction is needed. Preserve those files for the next check.
-
-## Checkpoint 3: check the next change
-
-Repeat the same task from the same starting repository state in a fresh session, changing only the agent configuration or implementation you intend to compare:
-
-```bash
-claude
-```
-
-After normal session completion, run `check` and use its printed trace ID as `CANDIDATE_TRACE_ID` in the baseline comparison:
-
-```bash
-maida check
-maida assert CANDIDATE_TRACE_ID --baseline .maida/baselines/agent.json --policy .maida/policy.yaml
-```
-
-Confirm that the new observation belongs to the same task before comparing. Baseline gates and bare `list` or `view` retain their SDK/Python storage defaults; the explicit captured trace ID selects your task. Read the verdict and individual checks. PASS applies to the selected evidence and policy; FAIL identifies a violation; INCONCLUSIVE requires more suitable evidence or an explicitly reviewed requirement. Exit zero alone is not approval.
-
-Before relying on a requirement, reproduce a safe, relevant violation and repair it without changing the baseline. Do not induce dangerous actions in your repository. The offline [shipping refactor lab](../demos/pr-gate/) rehearses PASS → FAIL → repair when you do not have a safe real regression to repeat. Its stronger policy detects test rewriting; the small starter above does not claim that coverage. Follow the viewer command from `check` to investigate a failed observation.
-
-## Checkpoint 4: add CI when the local check is useful
-
-Use the [gate skill](https://github.com/maida-ai/skills/tree/main/product/maida-add-regression-gate) to make the same task repeatable with pinned versions and explicit budgets. Coding-agent CI needs a repeatable scenario, not a saved session. The [init reference](https://maida.ai/docs/cli/init/) also shows generating a workflow for an existing traced Python entrypoint.
-
-Before treating the GitHub check as a merge gate, test it on an actual PR, including a fresh result on the new head after intentional acceptance. Configure required checks and workflow-file review protection. Acceptance must preserve the reviewed reason and evidence; do not replace a baseline just to get green.
+See the [getting started guide](https://maida.ai/docs/getting-started/), [init reference](https://maida.ai/docs/cli/init/) for inherited-hook recovery and review details, and [capture guide](https://maida.ai/docs/claude-code/) for coverage and abrupt exits. For another integration, use the [integration overview](https://maida.ai/docs/integrations/) or secondary [Python walkthrough](python-agent.md).
