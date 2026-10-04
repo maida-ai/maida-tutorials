@@ -15,14 +15,14 @@ uv run --directory demos/pr-gate --frozen python demo.py
 
 You will see **safe refactor → PASS → instruction change → green application tests → Maida FAIL**. The same storefront also demonstrates skipped verification and an agent “improving” its own instructions until it drops a protected responsibility. All four scenarios are individually runnable. Maida gates an agent change regardless of who authored it.
 
-The coding decisions are deterministic, with real file edits, real application tests, and released Maida 0.6.0. No credentials or live model are needed. After dependency installation, the rehearsal runs offline in temporary workspaces and leaves your checkout unchanged. Start here; you do not need reference documentation to understand the lesson.
+The coding decisions are deterministic, with real file edits, real application tests, and released Maida 0.6.1. No credentials or live model are needed. After dependency installation, the rehearsal runs offline in temporary workspaces and leaves your checkout unchanged. Start here; you do not need reference documentation to understand the lesson.
 
 ## Try the standalone CLI
 
 For a quick canned gate story without cloning anything:
 
 ```bash
-uv tool install "maida-ai==0.6.0"
+uv tool install "maida-ai==0.6.1"
 maida demo --regression
 ```
 
@@ -48,4 +48,4 @@ The [Maida coding-agent skill pack](https://github.com/maida-ai/skills/tree/main
 
 A lesson should start from a real developer task, show the expected result, exercise a failure and recovery, and keep run data in a temporary or explicitly chosen local directory. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-The root lockfile and published onboarding workflow use `maida-ai==0.6.0`. The [0.5 compatibility walkthrough](guides/coding-agent-0.5.md) and historical CrewAI notebook retain their explicit 0.5.3 pins. Repository releases follow the engine's `MAJOR.MINOR` compatibility line with their own `PATCH`, as described in the [cross-repository compatibility policy](https://github.com/maida-ai/maida/blob/main/CONTRIBUTING.md#versioning-and-compatibility).
+The root lockfile and published onboarding workflow use `maida-ai==0.6.1`. The [0.5 compatibility walkthrough](guides/coding-agent-0.5.md) and historical CrewAI notebook retain their explicit 0.5.3 pins. Repository releases follow the engine's `MAJOR.MINOR` compatibility line with their own `PATCH`, as described in the [cross-repository compatibility policy](https://github.com/maida-ai/maida/blob/main/CONTRIBUTING.md#versioning-and-compatibility).

@@ -5,7 +5,7 @@ description = "A deterministic demo of Maida catching an AGENTS.md behavioral re
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
 dependencies = [
-    "maida-ai>=0.6.0",
+    "maida-ai>=0.6.1",
 ]
 
 [dependency-groups]

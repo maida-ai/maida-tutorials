@@ -103,7 +103,7 @@ jobs:
           agent-script: demos/pr-gate/coding_agent.py
           baseline: demos/pr-gate/.maida/baselines/coding-agent.json
           policy: demos/pr-gate/.maida/policy.yaml
-          maida-version: v0.6.0
+          maida-version: v0.6.1
           python-version: "3.13"
           mode: report-only
           post-comment: "false"

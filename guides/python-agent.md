@@ -1,9 +1,9 @@
 # Protect one Python agent task
 
-Begin with `uv tool install "maida-ai==0.6.0"` and `maida demo --regression` to see a failing gate and its report. Then add Maida to the interpreter that actually runs your project:
+Begin with `uv tool install "maida-ai==0.6.1"` and `maida demo --regression` to see a failing gate and its report. Then add Maida to the interpreter that actually runs your project:
 
 ```bash
-uv add "maida-ai==0.6.0"
+uv add "maida-ai==0.6.1"
 ```
 
 A tool install does not make `import maida` available to your project's Python interpreter. Start with one task that uses a real tool you care about; wrap that entrypoint with `@trace` and record the tool call around its existing result. For a runnable starting point, use [examples/minimal/simple_agent.py](../examples/minimal/simple_agent.py). The [examples catalog](../examples/README.md) lists framework adapters when you need one.

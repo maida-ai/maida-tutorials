@@ -9,7 +9,7 @@ Run the core tutorial suite and released user workflow separately:
 ```bash
 uv sync --locked
 uv run --frozen python -m unittest discover -s tests
-uv run --no-project --with "maida-ai==0.6.0" python -m unittest discover -s onboarding/tests
+uv run --no-project --with "maida-ai==0.6.1" python -m unittest discover -s onboarding/tests
 ```
 
 The released workflow test uses temporary project directories and replays capture protocol events; it never invokes a model. It proves the documented CLI contract, not a live coding agent or GitHub branch protection. Run each changed independent demo's own suite from its directory as well.
