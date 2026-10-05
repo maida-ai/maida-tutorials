@@ -1,6 +1,7 @@
 """Migration completeness and public entry points from a standalone checkout."""
 
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -8,6 +9,32 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class ConsolidationTests(unittest.TestCase):
+    def test_star_request_follows_the_runnable_pass_to_fail_proof(self):
+        readme = (ROOT / "README.md").read_text()
+        requests = re.findall(r"(?m)^.*(?:⭐|\bstar\b).*$", readme)
+        self.assertEqual(len(requests), 1)
+        request = requests[0]
+        self.assertIn("If this demo helped", request)
+        self.assertIn("[star Maida](https://github.com/maida-ai/maida)", request)
+        before = readme[: readme.index(request)].rstrip()
+        proof = before.split("\n\n")[-1]
+        for value in (
+            "safe refactor",
+            "PASS",
+            "green application tests",
+            "$15",
+            "VIP",
+            "Maida FAIL",
+        ):
+            self.assertIn(value, proof)
+        self.assertLess(proof.index("PASS"), proof.index("Maida FAIL"))
+        self.assertIn(
+            "uv run --directory demos/pr-gate --frozen python demo.py", before
+        )
+        self.assertLess(
+            readme.index(request), readme.index("## Try the standalone CLI")
+        )
+
     def test_every_migrated_tracked_file_has_a_destination(self):
         inventory = json.loads((ROOT / "migration-inventory.json").read_text())
         self.assertEqual({item["repository"] for item in inventory}, {"Demos", "maida"})
