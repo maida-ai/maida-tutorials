@@ -1,4 +1,4 @@
-# Maida tutorials
+# <img src="assets/maida-symbol-dynamic.svg" alt="" width="36" height="32"> Maida tutorials
 
 **Maida checks agent changes before merge.** This core product repository owns the canonical runnable coding-agent experience, plus tutorials and examples. The [Maida engine and CLI](https://github.com/maida-ai/maida) own the checks; [maida-assert](https://github.com/maida-ai/maida-assert) brings them to the GitHub PR boundary.
 
@@ -13,7 +13,9 @@ uv sync --directory demos/pr-gate --locked
 uv run --directory demos/pr-gate --frozen python demo.py
 ```
 
-You will see **safe refactor → PASS → instruction change → green application tests → Maida FAIL**. The same storefront also demonstrates skipped verification and an agent “improving” its own instructions until it drops a protected responsibility. All four scenarios are individually runnable. Maida gates an agent change regardless of who authored it.
+You will see **safe refactor → PASS → instruction change → green application tests hiding the $15 VIP regression → Maida FAIL**. The same storefront also demonstrates skipped verification and an agent “improving” its own instructions until it drops a protected responsibility. All four scenarios are individually runnable. Maida gates an agent change regardless of who authored it.
+
+If this demo helped you spot what green tests missed, ⭐ [star Maida](https://github.com/maida-ai/maida) — it helps other teams find the project.
 
 The coding decisions are deterministic, with real file edits, real application tests, and released Maida 0.6.1. No credentials or live model are needed. After dependency installation, the rehearsal runs offline in temporary workspaces and leaves your checkout unchanged. Start here; you do not need reference documentation to understand the lesson.
 
