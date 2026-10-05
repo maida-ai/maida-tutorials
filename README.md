@@ -6,6 +6,10 @@
 
 Ask a coding agent to simplify a small storefront's shipping function. A helpful-looking instruction says to refresh test expectations when output changes. The agent rewrites the VIP regression test: shipping now costs $15 instead of $0, yet all four application tests pass. **Maida fails the behavioral regression.**
 
+<img src="demos/pr-gate/assets/storefront-proof.png" alt="VIP shipping stays $0 with the original test, but becomes $15 when the agent rewrites its expectation. Application tests pass in both paths; the reviewed Maida check rejects the rewrite." width="840">
+
+**[Check a Claude Code task](https://maida.ai/docs/getting-started/)** · **[Try the offline example](demos/pr-gate/#try-the-offline-example)**
+
 The [canonical coding-agent project](demos/pr-gate/) shows the complete story in one sitting. Clone this repository, use Python 3.12 or 3.13, then run from its root:
 
 ```bash
@@ -17,7 +21,7 @@ You will see **safe refactor → PASS → instruction change → green applicati
 
 If this demo helped you spot what green tests missed, ⭐ [star Maida](https://github.com/maida-ai/maida) — it helps other teams find the project.
 
-The coding decisions are deterministic, with real file edits, real application tests, and released Maida 0.6.1. No credentials or live model are needed. After dependency installation, the rehearsal runs offline in temporary workspaces and leaves your checkout unchanged. Start here; you do not need reference documentation to understand the lesson.
+The coding decisions are deterministic, with real file edits, real application tests, and released Maida 0.6.1. No credentials or live model are needed. After dependency installation, the rehearsal runs offline in temporary workspaces and leaves your checkout unchanged. Choose this rehearsal or go directly to your own repository. You do not need reference documentation to understand the lesson.
 
 ## Try the standalone CLI
 
@@ -32,7 +36,7 @@ Maida shows a failing verdict and PR-comment preview. An expected `FAIL` is the 
 
 ## Protect a task in your repository
 
-After the reference experience, follow the [coding-agent walkthrough](guides/coding-agent.md) to capture and check your own task. Building a Python tool-calling agent? Use the [Python agent walkthrough](guides/python-agent.md).
+Follow the [coding-agent walkthrough](guides/coding-agent.md) to capture and check your own task. Building a Python tool-calling agent? Use the [Python agent walkthrough](guides/python-agent.md).
 
 The [Maida coding-agent skill pack](https://github.com/maida-ai/skills/tree/main/product) provides `maida-instrument-agent`, `maida-add-regression-gate`, and `maida-debug-gate`. Each leaves a reviewable local diff and does not push commits or upload traces. See its integration list for supported coding agents. The [Maida OpenCode plugin](https://github.com/maida-ai/opencode-plugin) is another capture integration.
 
