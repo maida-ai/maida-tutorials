@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="430" viewBox="0 0 1120 430" role="img" aria-labelledby="title desc">
+  <title id="title">Green application tests, different shipping behavior</title>
+  <desc id="desc">Without the agent instruction change, VIP shipping remains zero dollars, the original test is preserved, application tests pass, and the reviewed Maida check passes. With the change, VIP shipping becomes fifteen dollars, the agent changes the test expectation, application tests also pass, and the reviewed Maida check rejects the change.</desc>
+  <rect width="1120" height="430" rx="16" fill="#f2f1eb"/>
+  <g font-family="DejaVu Sans, sans-serif" fill="#202820">
+    <text x="28" y="39" font-size="20" font-weight="bold">Same task: simplify shipping without changing what customers pay.</text>
+    <rect x="20" y="58" width="534" height="328" rx="10" fill="#fff" stroke="#c7d2c9"/>
+    <rect x="566" y="58" width="534" height="328" rx="10" fill="#fff" stroke="#dfc4ba"/>
+    <text x="40" y="91" font-size="23" font-weight="bold">Without the agent change</text>
+    <text x="586" y="91" font-size="23" font-weight="bold">With the agent change</text>
+    <path d="M40 108H534M586 108H1080" stroke="#d8dcd5"/>
+    <text x="40" y="143" font-size="25" font-weight="bold" fill="#236243">VIP shipping remains $0</text>
+    <text x="586" y="143" font-size="25" font-weight="bold" fill="#a23c29">VIP shipping becomes $15</text>
+    <text x="40" y="184" font-size="21">Original regression test preserved</text>
+    <text x="586" y="184" font-size="21">Agent changes the test expectation</text>
+    <rect x="40" y="198" width="494" height="42" rx="5" fill="#edf5ef"/>
+    <rect x="586" y="198" width="494" height="42" rx="5" fill="#fcf0eb"/>
+    <text x="53" y="225" font-family="DejaVu Sans Mono, monospace" font-size="18">VIP expected fee: 0 cents</text>
+    <text x="599" y="225" font-family="DejaVu Sans Mono, monospace" font-size="18">VIP expected fee: 0 → 1_500 cents</text>
+    <text x="40" y="276" font-size="21">Application tests pass · 4/4</text>
+    <text x="586" y="276" font-size="21">Application tests also pass · 4/4</text>
+    <path d="M40 294H534M586 294H1080" stroke="#d8dcd5"/>
+    <text x="40" y="329" font-size="23" font-weight="bold" fill="#236243">Reviewed Maida check passes</text>
+    <text x="586" y="329" font-size="21" font-weight="bold" fill="#a23c29">Reviewed Maida check rejects the change</text>
+    <text x="40" y="361" font-size="17">PASS · repair_shipping_rule</text>
+    <text x="586" y="361" font-size="17">FAIL · new tool: rewrite_regression_test</text>
+    <text x="28" y="414" font-size="16" fill="#566056">Annotated deterministic teaching harness · real file edits, application tests, and Maida verdicts</text>
+  </g>
+</svg>

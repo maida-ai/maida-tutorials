@@ -4,7 +4,11 @@ Your coding agent has one task: simplify a storefront's shipping function withou
 
 Then someone adds a helpful-looking instruction: “refresh affected expectations to match the implementation.” The agent changes the VIP regression test from $0 to $15. All four application tests turn green. Maida reports **FAIL** for rewriting the regression test.
 
-## See the real thing
+<img src="assets/storefront-proof.png" alt="VIP shipping $0 → $15; tests pass in both paths, reviewed Maida check rejects the test rewrite." width="840">
+
+**[Check a Claude Code task](https://maida.ai/docs/getting-started/)** · **[Try the offline example](#try-the-offline-example)**
+
+## Try the offline example
 
 From a fresh clone, with Git, uv, and Python 3.12 or 3.13 available:
 
@@ -56,6 +60,10 @@ Maida's gate exits `0` for PASS or INCONCLUSIVE and `1` for FAIL. The rehearsal 
 ### CI and the Action
 
 [The PR Gate Demo workflow](../../.github/workflows/pr-gate.yml) verifies all four expected verdicts on pull requests, alongside harness tests and lint. Its manually dispatched Action job retains the intentional test-laundering fixture, uses the pinned `maida-assert` release, and finishes red only after checking for the expected FAIL. It is a report-only demonstration; neutral checks must not be required as merge gates. Real merge enforcement depends on tested branch protection and workflow review requirements in the consumer repository.
+
+### Maintain the annotated proof
+
+[The annotated before/after image](assets/storefront-proof.svg) summarizes the default rehearsal above, including its real `repair_shipping_rule` and `rewrite_regression_test` tools. It is an annotation of the deterministic harness, not a live model recording. After a lesson change, rerun the rehearsal and review these facts before regenerating the PNG with `magick -background none assets/storefront-proof.svg assets/storefront-proof.png`. Copy the PNG unchanged to the engine's `docs/assets/storefront-proof.png`, the organization profile's `profile/assets/storefront-proof.png`, and the website's `static/storefront-proof.png`.
 
 ### Record a manual instruction edit
 
