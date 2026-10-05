@@ -1,6 +1,6 @@
 # Maida tutorials
 
-Don't let broken agent changes merge. This repository owns Maida's runnable examples, tutorials, and demos.
+**Maida checks agent changes before merge.** This core product repository owns the canonical runnable coding-agent experience, plus tutorials and examples. The [Maida engine and CLI](https://github.com/maida-ai/maida) own the checks; [maida-assert](https://github.com/maida-ai/maida-assert) brings them to the GitHub PR boundary.
 
 ## See the real thing: a coding-agent change with green tests
 
@@ -41,8 +41,7 @@ The [Maida coding-agent skill pack](https://github.com/maida-ai/skills/tree/main
 - [Examples catalog](examples/README.md): Python agents and optional framework examples.
 - [Integration notebooks](guides/notebooks.md): optional notebook lessons and historical compatibility notes.
 - [Langfuse import demo](demos/langfuse_import/): an optional read-only import lesson.
-- [Demo catalog](demos/README.md): other focused lessons and archived experiments.
-- [Migration inventory](MIGRATION.md): where the former Demos repository and engine examples went.
+- [Demo catalog](demos/README.md): other focused lessons.
 
 ## Contribute a lesson
 
